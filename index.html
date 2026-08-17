@@ -62,6 +62,30 @@
     overflow:hidden;
   }
   .hero .wrap{position:relative;z-index:2;}
+  .lang-switch{
+    position:absolute;
+    top:14px;
+    right:14px;
+    z-index:3;
+  }
+  .lang-switch select{
+    background:rgba(255,255,255,.16);
+    border:1px solid rgba(255,255,255,.4);
+    color:#fff;
+    font-family:inherit;
+    font-weight:700;
+    font-size:.76rem;
+    padding:6px 24px 6px 10px;
+    border-radius:999px;
+    appearance:none;
+    -webkit-appearance:none;
+    cursor:pointer;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='white' d='M5.5 7.5l4.5 4.5 4.5-4.5z'/></svg>");
+    background-repeat:no-repeat;
+    background-position:right 8px center;
+  }
+  .lang-switch select:focus{outline:1px solid #fff;}
+  .lang-switch select option{color:var(--ink);}
   .eyebrow{
     display:inline-block;
     font-size:.72rem;
@@ -285,10 +309,18 @@
 <div id="landing">
 
   <section class="hero">
+    <div class="lang-switch">
+      <select id="lang-select" aria-label="Lingua / Language / Idioma / 语言">
+        <option value="it">Italiano</option>
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="zh">中文</option>
+      </select>
+    </div>
     <div class="wrap">
-      <span class="eyebrow">Caltagirone · Centro Storico</span>
+      <span class="eyebrow" data-i18n="eyebrow">Caltagirone · Centro Storico</span>
       <h1>Vicus <span>&amp;</span> Fabula</h1>
-      <p class="tagline">Una caccia al tesoro in realtà aumentata tra le maioliche e i vicoli di Caltagirone. Si gioca dal browser, in pochi minuti.</p>
+      <p class="tagline" data-i18n="tagline">Una caccia al tesoro in realtà aumentata tra le maioliche e i vicoli di Caltagirone. Si gioca dal browser, in pochi minuti.</p>
 
       <div class="hero-art" aria-hidden="true">
         <svg viewBox="0 0 320 240" preserveAspectRatio="none">
@@ -301,10 +333,10 @@
           </g>
           <circle cx="250" cy="55" r="26" fill="rgba(255,235,180,0.85)"/>
         </svg>
-        <span class="caption">Scala di Santa Maria del Monte — illustrazione segnaposto</span>
+        <span class="caption" data-i18n="heroCaption">Scala di Santa Maria del Monte — illustrazione segnaposto</span>
       </div>
 
-      <a href="#iscrizione" class="cta-btn">Prenota il tuo posto →</a>
+      <a href="#iscrizione" class="cta-btn" data-i18n="ctaBtn">Prenota il tuo posto →</a>
     </div>
   </section>
 
@@ -312,16 +344,16 @@
 
   <section class="about">
     <div class="wrap">
-      <h2>Di cosa si tratta</h2>
-      <p><strong>Vicus &amp; Fabula</strong> è un gioco a caccia al tesoro in realtà aumentata (WebAR): si gioca direttamente dal browser dello smartphone, senza scaricare nessuna app.</p>
-      <p>Seguendo enigmi e indizi legati alla storia, all'arte e alla tradizione ceramica della città, esplorerai luoghi come la <strong>Scala di Santa Maria del Monte</strong>, il centro storico barocco e le botteghe artigiane.</p>
-      <p>Pensato per chi visita Caltagirone in giornata: un'esperienza di <strong>1-2 ore</strong>, da vivere da soli, in coppia, in famiglia o in gruppo.</p>
+      <h2 data-i18n="aboutTitle">Di cosa si tratta</h2>
+      <p data-i18n-html="aboutP1"><strong>Vicus &amp; Fabula</strong> è un gioco a caccia al tesoro in realtà aumentata (WebAR): si gioca direttamente dal browser dello smartphone, senza scaricare nessuna app.</p>
+      <p data-i18n-html="aboutP2">Seguendo enigmi e indizi legati alla storia, all'arte e alla tradizione ceramica della città, esplorerai luoghi come la <strong>Scala di Santa Maria del Monte</strong>, il centro storico barocco e le botteghe artigiane.</p>
+      <p data-i18n-html="aboutP3">Pensato per chi visita Caltagirone in giornata: un'esperienza di <strong>1-2 ore</strong>, da vivere da soli, in coppia, in famiglia o in gruppo.</p>
 
       <ul class="feature-list">
-        <li><span class="ic">🧩</span><span>Enigmi ambientati nei luoghi reali della città</span></li>
-        <li><span class="ic">📜</span><span>Narrazione storico-culturale tra arte, storia e ceramica</span></li>
-        <li><span class="ic">👥</span><span>Esperienza multiplayer, perfetta per gruppi e famiglie</span></li>
-        <li><span class="ic">📱</span><span>Nessuna app da installare: si gioca dal browser</span></li>
+        <li><span class="ic">🧩</span><span data-i18n="feature1">Enigmi ambientati nei luoghi reali della città</span></li>
+        <li><span class="ic">📜</span><span data-i18n="feature2">Narrazione storico-culturale tra arte, storia e ceramica</span></li>
+        <li><span class="ic">👥</span><span data-i18n="feature3">Esperienza multiplayer, perfetta per gruppi e famiglie</span></li>
+        <li><span class="ic">📱</span><span data-i18n="feature4">Nessuna app da installare: si gioca dal browser</span></li>
       </ul>
     </div>
   </section>
@@ -331,45 +363,45 @@
       <div class="form-card">
 
         <div id="form-intro">
-          <h2>Sei tra i primi a scoprirlo</h2>
-          <p class="form-sub">Rispondi in 20 secondi: ci aiuti a capire chi visita Caltagirone e sblocchi lo sconto di lancio.</p>
+          <h2 data-i18n="formTitle">Sei tra i primi a scoprirlo</h2>
+          <p class="form-sub" data-i18n="formSub">Rispondi in 20 secondi: ci aiuti a capire chi visita Caltagirone e sblocchi lo sconto di lancio.</p>
 
           <form id="vf-form">
-            <label class="field-label">Quando hai visitato Caltagirone oggi? <span style="font-weight:400;color:var(--ink-soft);">(facoltativo)</span></label>
+            <label class="field-label"><span data-i18n="labelFascia">Quando hai visitato Caltagirone oggi?</span> <span style="font-weight:400;color:var(--ink-soft);" data-i18n="optNote">(facoltativo)</span></label>
             <div class="pill-group" id="fascia-group">
-              <div class="pill" data-value="mattina">Mattina</div>
-              <div class="pill" data-value="pomeriggio">Pomeriggio</div>
-              <div class="pill" data-value="sera">Sera</div>
+              <div class="pill" data-value="mattina" data-i18n="pillMattina">Mattina</div>
+              <div class="pill" data-value="pomeriggio" data-i18n="pillPomeriggio">Pomeriggio</div>
+              <div class="pill" data-value="sera" data-i18n="pillSera">Sera</div>
             </div>
 
-            <label class="field-label" for="provenienza">Da dove vieni?</label>
+            <label class="field-label" for="provenienza" data-i18n="labelProvenienza">Da dove vieni?</label>
             <select id="provenienza" required>
-              <option value="" disabled selected>Seleziona…</option>
+              <option value="" disabled selected data-i18n="optSelect">Seleziona…</option>
               <option value="Catania">Catania</option>
               <option value="Siracusa">Siracusa</option>
-              <option value="Altra provincia siciliana">Altra provincia siciliana</option>
-              <option value="Altra regione italiana">Altra regione italiana</option>
-              <option value="Estero">Estero</option>
-              <option value="Residente a Caltagirone/zona">Residente a Caltagirone/zona</option>
+              <option value="Altra provincia siciliana" data-i18n="optAltraProvincia">Altra provincia siciliana</option>
+              <option value="Altra regione italiana" data-i18n="optAltraRegione">Altra regione italiana</option>
+              <option value="Estero" data-i18n="optEstero">Estero</option>
+              <option value="Residente a Caltagirone/zona" data-i18n="optResidente">Residente a Caltagirone/zona</option>
             </select>
 
-            <label class="field-label" for="mezzo">Come sei arrivato a Caltagirone?</label>
+            <label class="field-label" for="mezzo" data-i18n="labelMezzo">Come sei arrivato a Caltagirone?</label>
             <select id="mezzo" required>
-              <option value="" disabled selected>Seleziona…</option>
-              <option value="Auto propria">Auto propria</option>
-              <option value="Pullman/tour organizzato">Pullman / tour organizzato</option>
-              <option value="Mezzi pubblici">Mezzi pubblici</option>
-              <option value="Altro">Altro</option>
+              <option value="" disabled selected data-i18n="optSelect">Seleziona…</option>
+              <option value="Auto propria" data-i18n="optAutoPropria">Auto propria</option>
+              <option value="Pullman/tour organizzato" data-i18n="optPullman">Pullman / tour organizzato</option>
+              <option value="Mezzi pubblici" data-i18n="optMezziPubblici">Mezzi pubblici</option>
+              <option value="Altro" data-i18n="optAltroMezzo">Altro</option>
             </select>
 
-            <label class="field-label" for="contatto">Email o numero di telefono <span style="font-weight:400;color:var(--ink-soft);">(facoltativo, per lo sconto di lancio)</span></label>
-            <input type="text" id="contatto" placeholder="nome@email.it oppure 333 1234567" autocomplete="off">
+            <label class="field-label" for="contatto"><span data-i18n="labelContatto">Email o numero di telefono</span> <span style="font-weight:400;color:var(--ink-soft);" data-i18n="optNoteDiscount">(facoltativo, per lo sconto di lancio)</span></label>
+            <input type="text" id="contatto" placeholder="nome@email.it oppure 333 1234567" data-i18n-placeholder="contattoPlaceholder" autocomplete="off">
             <div class="consent">
               <input type="checkbox" id="consent">
-              <label for="consent">Userò il tuo contatto solo per avvisarti del lancio di Vicus &amp; Fabula.</label>
+              <label for="consent" data-i18n="consentLabel">Userò il tuo contatto solo per avvisarti del lancio di Vicus &amp; Fabula.</label>
             </div>
 
-            <button type="submit" class="submit-btn" id="submit-btn">Iscrivimi e sblocca lo sconto di lancio</button>
+            <button type="submit" class="submit-btn" id="submit-btn" data-i18n="submitBtn">Iscrivimi e sblocca lo sconto di lancio</button>
             <div class="form-msg" id="form-msg"></div>
           </form>
         </div>
@@ -386,7 +418,7 @@
 
   <footer>
     <div class="fw">Vicus &amp; Fabula</div>
-    <div>Caltagirone, Sicilia — in arrivo</div>
+    <div data-i18n="footerLine">Caltagirone, Sicilia — in arrivo</div>
   </footer>
 </div>
 
@@ -492,12 +524,251 @@
   var isAdmin = qs.get("admin") === "1";
   var source = qs.get("source") || "diretto";
 
+  // ---- TRADUZIONI ----------------------------------------------------------
+  var I18N = {
+    it: {
+      pageTitle: "Vicus & Fabula — Caccia al tesoro in AR a Caltagirone",
+      metaDescription: "Vicus & Fabula: una caccia al tesoro in realtà aumentata nel centro storico di Caltagirone. Iscriviti alla lista d'attesa e sblocca lo sconto di lancio.",
+      eyebrow: "Caltagirone · Centro Storico",
+      tagline: "Una caccia al tesoro in realtà aumentata tra le maioliche e i vicoli di Caltagirone. Si gioca dal browser, in pochi minuti.",
+      heroCaption: "Scala di Santa Maria del Monte — illustrazione segnaposto",
+      ctaBtn: "Prenota il tuo posto →",
+      aboutTitle: "Di cosa si tratta",
+      aboutP1: "<strong>Vicus &amp; Fabula</strong> è un gioco a caccia al tesoro in realtà aumentata (WebAR): si gioca direttamente dal browser dello smartphone, senza scaricare nessuna app.",
+      aboutP2: "Seguendo enigmi e indizi legati alla storia, all'arte e alla tradizione ceramica della città, esplorerai luoghi come la <strong>Scala di Santa Maria del Monte</strong>, il centro storico barocco e le botteghe artigiane.",
+      aboutP3: "Pensato per chi visita Caltagirone in giornata: un'esperienza di <strong>1-2 ore</strong>, da vivere da soli, in coppia, in famiglia o in gruppo.",
+      feature1: "Enigmi ambientati nei luoghi reali della città",
+      feature2: "Narrazione storico-culturale tra arte, storia e ceramica",
+      feature3: "Esperienza multiplayer, perfetta per gruppi e famiglie",
+      feature4: "Nessuna app da installare: si gioca dal browser",
+      formTitle: "Sei tra i primi a scoprirlo",
+      formSub: "Rispondi in 20 secondi: ci aiuti a capire chi visita Caltagirone e sblocchi lo sconto di lancio.",
+      labelFascia: "Quando hai visitato Caltagirone oggi?",
+      optNote: "(facoltativo)",
+      pillMattina: "Mattina",
+      pillPomeriggio: "Pomeriggio",
+      pillSera: "Sera",
+      labelProvenienza: "Da dove vieni?",
+      optSelect: "Seleziona…",
+      optAltraProvincia: "Altra provincia siciliana",
+      optAltraRegione: "Altra regione italiana",
+      optEstero: "Estero",
+      optResidente: "Residente a Caltagirone/zona",
+      labelMezzo: "Come sei arrivato a Caltagirone?",
+      optAutoPropria: "Auto propria",
+      optPullman: "Pullman / tour organizzato",
+      optMezziPubblici: "Mezzi pubblici",
+      optAltroMezzo: "Altro",
+      labelContatto: "Email o numero di telefono",
+      optNoteDiscount: "(facoltativo, per lo sconto di lancio)",
+      contattoPlaceholder: "nome@email.it oppure 333 1234567",
+      consentLabel: "Userò il tuo contatto solo per avvisarti del lancio di Vicus & Fabula.",
+      submitBtn: "Iscrivimi e sblocca lo sconto di lancio",
+      submitting: "Invio in corso…",
+      formErrRequired: "Seleziona provenienza e mezzo di trasporto per continuare.",
+      successTitleContact: "Grazie! Sei in lista 🏺",
+      successTitleNoContact: "Grazie per il tuo contributo!",
+      successTextContact: "Ti avviseremo al lancio di Vicus & Fabula con il tuo sconto dedicato.",
+      successTextNoContact: "Ogni risposta ci aiuta a costruire l'esperienza giusta per chi visita Caltagirone.",
+      footerLine: "Caltagirone, Sicilia — in arrivo"
+    },
+    en: {
+      pageTitle: "Vicus & Fabula — AR Treasure Hunt in Caltagirone",
+      metaDescription: "Vicus & Fabula: an augmented-reality treasure hunt in the historic centre of Caltagirone. Join the waitlist and unlock the launch discount.",
+      eyebrow: "Caltagirone · Historic Centre",
+      tagline: "An augmented-reality treasure hunt among the majolica tiles and alleyways of Caltagirone. Play straight from your browser, in just a few minutes.",
+      heroCaption: "Staircase of Santa Maria del Monte — placeholder illustration",
+      ctaBtn: "Reserve your spot →",
+      aboutTitle: "What it's about",
+      aboutP1: "<strong>Vicus &amp; Fabula</strong> is an augmented-reality (WebAR) treasure hunt game: you play straight from your smartphone's browser, no app to download.",
+      aboutP2: "Following riddles and clues tied to the city's history, art and ceramic tradition, you'll explore places like the <strong>Staircase of Santa Maria del Monte</strong>, the baroque historic centre and the artisan workshops.",
+      aboutP3: "Designed for day-trippers visiting Caltagirone: a <strong>1-2 hour</strong> experience, to enjoy solo, as a couple, with family or in a group.",
+      feature1: "Riddles set in the city's real locations",
+      feature2: "Historical and cultural storytelling through art, history and ceramics",
+      feature3: "Multiplayer experience, perfect for groups and families",
+      feature4: "No app to install: play straight from your browser",
+      formTitle: "You're among the first to discover it",
+      formSub: "Answer in 20 seconds: help us understand who visits Caltagirone and unlock your launch discount.",
+      labelFascia: "When did you visit Caltagirone today?",
+      optNote: "(optional)",
+      pillMattina: "Morning",
+      pillPomeriggio: "Afternoon",
+      pillSera: "Evening",
+      labelProvenienza: "Where are you from?",
+      optSelect: "Select…",
+      optAltraProvincia: "Other Sicilian province",
+      optAltraRegione: "Other Italian region",
+      optEstero: "Abroad",
+      optResidente: "Local resident (Caltagirone area)",
+      labelMezzo: "How did you get to Caltagirone?",
+      optAutoPropria: "Own car",
+      optPullman: "Coach / organised tour",
+      optMezziPubblici: "Public transport",
+      optAltroMezzo: "Other",
+      labelContatto: "Email or phone number",
+      optNoteDiscount: "(optional, for the launch discount)",
+      contattoPlaceholder: "name@email.com or +1 555 123 4567",
+      consentLabel: "We'll only use your contact to notify you about the launch of Vicus & Fabula.",
+      submitBtn: "Sign me up and unlock the launch discount",
+      submitting: "Sending…",
+      formErrRequired: "Select where you're from and how you arrived to continue.",
+      successTitleContact: "Thank you! You're on the list 🏺",
+      successTitleNoContact: "Thanks for your contribution!",
+      successTextContact: "We'll notify you at the launch of Vicus & Fabula with your dedicated discount.",
+      successTextNoContact: "Every answer helps us build the right experience for people visiting Caltagirone.",
+      footerLine: "Caltagirone, Sicily — coming soon"
+    },
+    es: {
+      pageTitle: "Vicus & Fabula — Búsqueda del tesoro en RA en Caltagirone",
+      metaDescription: "Vicus & Fabula: una búsqueda del tesoro en realidad aumentada en el centro histórico de Caltagirone. Únete a la lista de espera y desbloquea el descuento de lanzamiento.",
+      eyebrow: "Caltagirone · Centro Histórico",
+      tagline: "Una búsqueda del tesoro en realidad aumentada entre las mayólicas y las callejuelas de Caltagirone. Se juega desde el navegador, en pocos minutos.",
+      heroCaption: "Escalinata de Santa Maria del Monte — ilustración provisional",
+      ctaBtn: "Reserva tu lugar →",
+      aboutTitle: "De qué se trata",
+      aboutP1: "<strong>Vicus &amp; Fabula</strong> es un juego de búsqueda del tesoro en realidad aumentada (WebAR): se juega directamente desde el navegador del smartphone, sin descargar ninguna app.",
+      aboutP2: "Siguiendo enigmas y pistas relacionados con la historia, el arte y la tradición cerámica de la ciudad, explorarás lugares como la <strong>Escalinata de Santa Maria del Monte</strong>, el centro histórico barroco y los talleres artesanales.",
+      aboutP3: "Pensado para quienes visitan Caltagirone en el día: una experiencia de <strong>1-2 horas</strong>, para vivir solo, en pareja, en familia o en grupo.",
+      feature1: "Enigmas ambientados en los lugares reales de la ciudad",
+      feature2: "Narración histórico-cultural entre arte, historia y cerámica",
+      feature3: "Experiencia multijugador, perfecta para grupos y familias",
+      feature4: "Sin ninguna app que instalar: se juega desde el navegador",
+      formTitle: "Eres de los primeros en descubrirlo",
+      formSub: "Responde en 20 segundos: nos ayudas a entender quién visita Caltagirone y desbloqueas el descuento de lanzamiento.",
+      labelFascia: "¿Cuándo visitaste Caltagirone hoy?",
+      optNote: "(opcional)",
+      pillMattina: "Mañana",
+      pillPomeriggio: "Tarde",
+      pillSera: "Noche",
+      labelProvenienza: "¿De dónde vienes?",
+      optSelect: "Selecciona…",
+      optAltraProvincia: "Otra provincia siciliana",
+      optAltraRegione: "Otra región italiana",
+      optEstero: "Extranjero",
+      optResidente: "Residente en Caltagirone/zona",
+      labelMezzo: "¿Cómo llegaste a Caltagirone?",
+      optAutoPropria: "Coche propio",
+      optPullman: "Autobús / tour organizado",
+      optMezziPubblici: "Transporte público",
+      optAltroMezzo: "Otro",
+      labelContatto: "Correo electrónico o número de teléfono",
+      optNoteDiscount: "(opcional, para el descuento de lanzamiento)",
+      contattoPlaceholder: "nombre@email.com o 612 345 678",
+      consentLabel: "Usaremos tu contacto solo para avisarte del lanzamiento de Vicus & Fabula.",
+      submitBtn: "Inscríbeme y desbloquea el descuento de lanzamiento",
+      submitting: "Enviando…",
+      formErrRequired: "Selecciona tu procedencia y medio de transporte para continuar.",
+      successTitleContact: "¡Gracias! Ya estás en la lista 🏺",
+      successTitleNoContact: "¡Gracias por tu aportación!",
+      successTextContact: "Te avisaremos en el lanzamiento de Vicus & Fabula con tu descuento exclusivo.",
+      successTextNoContact: "Cada respuesta nos ayuda a construir la experiencia adecuada para quienes visitan Caltagirone.",
+      footerLine: "Caltagirone, Sicilia — próximamente"
+    },
+    zh: {
+      pageTitle: "Vicus & Fabula — 卡尔塔吉罗内 AR 寻宝游戏",
+      metaDescription: "Vicus & Fabula:一场发生在卡尔塔吉罗内历史中心的增强现实寻宝游戏。加入等候名单,解锁上线优惠。",
+      eyebrow: "卡尔塔吉罗内 · 历史中心",
+      tagline: "一场增强现实寻宝游戏,带你穿梭于卡尔塔吉罗内的马约里卡陶瓷与小巷之间。直接在浏览器中畅玩,只需几分钟。",
+      heroCaption: "圣马利亚山阶梯 — 占位插图",
+      ctaBtn: "预留名额 →",
+      aboutTitle: "关于游戏",
+      aboutP1: "<strong>Vicus &amp; Fabula</strong> 是一款增强现实(WebAR)寻宝游戏:直接在智能手机浏览器中畅玩,无需下载任何应用。",
+      aboutP2: "跟随与这座城市的历史、艺术和陶瓷传统相关的谜题与线索,探索<strong>圣马利亚山阶梯</strong>、巴洛克风格的历史中心以及手工艺作坊等地标。",
+      aboutP3: "专为当天到访卡尔塔吉罗内的游客设计:<strong>1-2 小时</strong>的体验,适合独自、情侣、家庭或团体游玩。",
+      feature1: "谜题设置在城市的真实地点",
+      feature2: "融合艺术、历史与陶瓷的文化历史叙事",
+      feature3: "多人游戏体验,适合团体与家庭",
+      feature4: "无需安装应用:直接在浏览器中畅玩",
+      formTitle: "您将是最早体验它的人之一",
+      formSub: "只需 20 秒:帮助我们了解到访卡尔塔吉罗内的游客,并解锁您的上线优惠。",
+      labelFascia: "您今天什么时候参观了卡尔塔吉罗内?",
+      optNote: "(可选)",
+      pillMattina: "上午",
+      pillPomeriggio: "下午",
+      pillSera: "晚上",
+      labelProvenienza: "您来自哪里?",
+      optSelect: "请选择…",
+      optAltraProvincia: "西西里其他省份",
+      optAltraRegione: "意大利其他地区",
+      optEstero: "国外",
+      optResidente: "卡尔塔吉罗内本地居民",
+      labelMezzo: "您是如何到达卡尔塔吉罗内的?",
+      optAutoPropria: "自驾",
+      optPullman: "大巴/跟团游",
+      optMezziPubblici: "公共交通",
+      optAltroMezzo: "其他",
+      labelContatto: "电子邮箱或电话号码",
+      optNoteDiscount: "(可选,用于获取上线优惠)",
+      contattoPlaceholder: "name@email.com 或 138 1234 5678",
+      consentLabel: "我们仅会使用您的联系方式通知您 Vicus & Fabula 的上线消息。",
+      submitBtn: "报名并解锁上线优惠",
+      submitting: "发送中…",
+      formErrRequired: "请选择您的出发地和到达方式以继续。",
+      successTitleContact: "谢谢!您已加入名单 🏺",
+      successTitleNoContact: "感谢您的参与!",
+      successTextContact: "Vicus & Fabula 上线时,我们会通知您并提供专属优惠。",
+      successTextNoContact: "每一份回答都能帮助我们为到访卡尔塔吉罗内的游客打造更好的体验。",
+      footerLine: "西西里卡尔塔吉罗内 — 即将上线"
+    }
+  };
+
+  var currentLang = "it";
+
+  function detectLang(){
+    var fromQs = qs.get("lang");
+    if (fromQs && I18N[fromQs]) return fromQs;
+    var saved = null;
+    try { saved = localStorage.getItem("vf_lang"); } catch(e){}
+    if (saved && I18N[saved]) return saved;
+    var nav = (navigator.language || "it").toLowerCase();
+    if (nav.indexOf("es") === 0) return "es";
+    if (nav.indexOf("zh") === 0) return "zh";
+    if (nav.indexOf("en") === 0) return "en";
+    return "it";
+  }
+
+  function applyLang(lang){
+    if (!I18N[lang]) lang = "it";
+    currentLang = lang;
+    var dict = I18N[lang];
+    document.documentElement.lang = lang;
+    document.title = dict.pageTitle;
+    var metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute("content", dict.metaDescription);
+
+    document.querySelectorAll("[data-i18n]").forEach(function(el){
+      var key = el.getAttribute("data-i18n");
+      if (dict[key] != null) el.textContent = dict[key];
+    });
+    document.querySelectorAll("[data-i18n-html]").forEach(function(el){
+      var key = el.getAttribute("data-i18n-html");
+      if (dict[key] != null) el.innerHTML = dict[key];
+    });
+    document.querySelectorAll("[data-i18n-placeholder]").forEach(function(el){
+      var key = el.getAttribute("data-i18n-placeholder");
+      if (dict[key] != null) el.placeholder = dict[key];
+    });
+
+    var selectEl = document.getElementById("lang-select");
+    if (selectEl) selectEl.value = lang;
+
+    try { localStorage.setItem("vf_lang", lang); } catch(e){}
+  }
+  // --------------------------------------------------------------------------
+
   function initLanding(){
+    applyLang(detectLang());
+    document.getElementById("lang-select").addEventListener("change", function(e){
+      applyLang(e.target.value);
+      if (lastHasContact !== null) showSuccess(lastHasContact);
+    });
+
     var form = document.getElementById("vf-form");
     var fasciaGroup = document.getElementById("fascia-group");
     var fasciaValue = "";
     var msgEl = document.getElementById("form-msg");
     var btn = document.getElementById("submit-btn");
+    var lastHasContact = null;
 
     fasciaGroup.addEventListener("click", function(e){
       var pill = e.target.closest(".pill");
@@ -524,7 +795,7 @@
       var contatto = document.getElementById("contatto").value.trim();
 
       if (!provenienza || !mezzo){
-        showMsg("Seleziona provenienza e mezzo di trasporto per continuare.", "error");
+        showMsg(I18N[currentLang].formErrRequired, "error");
         return;
       }
 
@@ -539,7 +810,7 @@
       };
 
       btn.disabled = true;
-      btn.textContent = "Invio in corso…";
+      btn.textContent = I18N[currentLang].submitting;
 
       // Non blocchiamo la conferma sull'esito della scrittura remota: la
       // cache locale persistente di Firestore garantisce che il dato non
@@ -548,19 +819,21 @@
         console.warn("Sincronizzazione posticipata:", err);
       });
 
-      showSuccess(!!contatto);
+      lastHasContact = !!contatto;
+      showSuccess(lastHasContact);
     });
 
     function showSuccess(hasContact){
       document.getElementById("form-intro").style.display = "none";
       var card = document.getElementById("success-card");
       card.classList.add("show");
+      var dict = I18N[currentLang];
       document.getElementById("success-title").textContent = hasContact
-        ? "Grazie! Sei in lista 🏺"
-        : "Grazie per il tuo contributo!";
+        ? dict.successTitleContact
+        : dict.successTitleNoContact;
       document.getElementById("success-text").textContent = hasContact
-        ? "Ti avviseremo al lancio di Vicus & Fabula con il tuo sconto dedicato."
-        : "Ogni risposta ci aiuta a costruire l'esperienza giusta per chi visita Caltagirone.";
+        ? dict.successTextContact
+        : dict.successTextNoContact;
     }
   }
 
