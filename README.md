@@ -11,37 +11,73 @@ dati non ottimale.
 ## File
 
 - `index.html` — landing page pubblica. Contiene anche la vista admin
-  (`?admin=1`) con il riepilogo delle risposte raccolte.
+  (`?admin=1`, protetta da login) con il riepilogo delle risposte raccolte.
 - `qr-print.html` — strumento ad uso interno per generare l'immagine QR
   ad alta risoluzione da stampare sul cartello fisico.
-- `apps-script/Code.gs` — backend leggero (Google Apps Script + Google Sheet)
-  che riceve le iscrizioni e restituisce le statistiche aggregate.
+- `vendor/qrcode-generator.js` — libreria di generazione QR (MIT, Kazuhiko
+  Arase) inclusa localmente, senza dipendere da una CDN esterna.
 
-## 1. Configurare il backend (Google Apps Script)
+## Backend: Firebase (Firestore + Authentication)
 
-Non c'è alcun server da gestire: si usa Google Apps Script collegato a un
-Google Sheet, gratuito.
+Le iscrizioni vengono scritte su **Cloud Firestore** del progetto Firebase
+`vicusandfabula` (già configurato in `index.html`). Nessun server da gestire:
+il piano gratuito Spark è sufficiente per questo volume di traffico.
 
-1. Crea un nuovo Google Sheet vuoto (Google Drive → Nuovo → Fogli Google).
-2. Estensioni → Apps Script.
-3. Sostituisci il contenuto di `Code.gs` con quello di
-   [`apps-script/Code.gs`](apps-script/Code.gs) di questo repo.
-4. Deploy → Nuova implementazione → tipo **Applicazione web**:
-   - Esegui come: **Me**
-   - Chi ha accesso: **Chiunque**
-5. Copia l'URL generato (termina con `/exec`).
-6. Apri `index.html`, cerca `CONFIG.APPS_SCRIPT_URL` (in fondo al file, nel
-   tag `<script>`) e incolla lì l'URL copiato.
+### 1. Regole di sicurezza Firestore
 
-Il foglio "Risposte" viene creato automaticamente al primo invio del form.
+Il progetto è partito in **modalità test** (lettura e scrittura pubbliche,
+scadenza automatica). Prima di affiggere il cartello fisico, sostituisci le
+regole in Console Firebase → Firestore Database → Regole con:
 
-## 2. Pubblicare la landing page
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /risposte/{docId} {
+      // Chiunque può inviare una risposta dal form pubblico...
+      allow create: if request.resource.data.keys().hasOnly(
+                        ['fasciaOraria','dataOggi','provenienza','mezzoTrasporto','contatto','source','createdAt']
+                      )
+                    && request.resource.data.provenienza is string
+                    && request.resource.data.mezzoTrasporto is string
+                    && request.resource.data.source is string;
+      // ...ma solo un admin autenticato può leggere/modificare/cancellare
+      // (le risposte includono contatti personali: email/telefono).
+      allow read, update, delete: if request.auth != null;
+    }
+  }
+}
+```
+
+Questo protegge i contatti raccolti (coerentemente con il messaggio di
+consenso mostrato nel form) pur lasciando il form pubblico liberamente
+scrivibile da chiunque scansioni il QR.
+
+### 2. Creare l'account admin
+
+La vista `?admin=1` richiede un login Firebase Authentication:
+
+1. Console Firebase → Authentication → Sign-in method → abilita **Email/Password**.
+2. Authentication → Users → **Aggiungi utente**: inserisci l'email e una
+   password che userai per accedere al pannello (es. `dotto.dottes@gmail.com`).
+3. Su `index.html?admin=1`, accedi con quelle credenziali per vedere i
+   conteggi aggregati (fascia oraria, provenienza, mezzo di trasporto,
+   canale, contatti raccolti).
+
+### 3. Configurazione già presente nel codice
+
+`firebaseConfig` è già incollato nello script di `index.html` (progetto
+`vicusandfabula`). La `apiKey` di un'app web Firebase non è un segreto da
+nascondere: la vera protezione dei dati sono le regole Firestore sopra, non
+l'oscurità della chiave.
+
+## Pubblicare la landing page
 
 Il sito è statico: può essere pubblicato con GitHub Pages (Settings → Pages →
 Deploy from branch), Netlify, Vercel o qualsiasi hosting statico. Non servono
 build né dipendenze da installare.
 
-## 3. Generare il QR per il cartello fisico
+## Generare il QR per il cartello fisico
 
 Apri `qr-print.html` (localmente o dopo il deploy), verifica/correggi l'URL
 della landing page pubblicata, lascia `source=qr-scala` (o cambialo), scegli
@@ -56,18 +92,13 @@ https://tuo-dominio/index.html?source=qr-scala
 Il parametro `source` viene salvato con ogni risposta del form, per poter
 distinguere in futuro il traffico dal cartello fisico da altri canali.
 
-## 4. Consultare i dati raccolti
-
-Vai su `https://tuo-dominio/index.html?admin=1` per la vista riepilogativa:
-conteggio totale delle risposte, breakdown per fascia oraria, provenienza,
-mezzo di trasporto e canale, e numero di contatti raccolti per la waitlist.
-
 ## Resilienza offline
 
-Se il visitatore ha connessione instabile (frequente ai piedi della
-scalinata), la risposta viene comunque salvata in una coda locale nel
-browser e reinviata automaticamente al backend appena la connessione torna
-disponibile o l'endpoint viene raggiunto, così nessuna risposta va persa.
+Firestore mantiene una cache locale persistente nel browser: se il
+visitatore ha connessione instabile (frequente ai piedi della scalinata),
+la risposta viene registrata subito e sincronizzata automaticamente non
+appena la connessione torna disponibile, senza bloccare la conferma mostrata
+sullo schermo.
 
 ## Personalizzazione
 
@@ -76,3 +107,5 @@ disponibile o l'endpoint viene raggiunto, così nessuna risposta va persa.
   ceramica di Caltagirone.
 - Testi, campi del form e liste puntate sono modificabili direttamente
   nell'HTML, senza bisogno di build.
+- Il nome della collection Firestore (`risposte`) è impostato nella
+  costante `COLLECTION_NAME` dentro lo script di `index.html`.

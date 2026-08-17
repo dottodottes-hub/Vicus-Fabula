@@ -178,7 +178,7 @@
     border-color:var(--maiolica);
     color:#fff;
   }
-  select, input[type=text]{
+  select, input[type=text], input[type=password]{
     width:100%;
     padding:13px 14px;
     border-radius:12px;
@@ -274,6 +274,7 @@
   .admin-btn{
     background:var(--maiolica);color:#fff;border:none;border-radius:10px;
     padding:10px 16px;font-weight:700;cursor:pointer;font-size:.85rem;
+    margin-right:8px;
   }
   .admin-note{font-size:.78rem;color:var(--ink-soft);margin-top:26px;line-height:1.5;}
 </style>
@@ -395,7 +396,16 @@
     <h1>Pannello rilevazione</h1>
     <p style="color:var(--ink-soft);font-size:.85rem;">Vicus &amp; Fabula — dati raccolti dal form in tempo reale.</p>
 
-    <div id="admin-loading" style="padding:30px 0;text-align:center;color:var(--ink-soft);">Caricamento dati…</div>
+    <div id="admin-login">
+      <label class="field-label" for="admin-email">Email admin</label>
+      <input type="text" id="admin-email" autocomplete="username" inputmode="email">
+      <label class="field-label" for="admin-password">Password</label>
+      <input type="password" id="admin-password" autocomplete="current-password">
+      <button class="admin-btn" id="admin-login-btn" style="width:100%;margin-top:16px;">Accedi</button>
+      <div class="form-msg error" id="admin-login-msg"></div>
+    </div>
+
+    <div id="admin-loading" style="display:none;padding:30px 0;text-align:center;color:var(--ink-soft);">Caricamento dati…</div>
     <div id="admin-error" class="form-msg error" style="display:none;"></div>
 
     <div id="admin-content" style="display:none;">
@@ -423,69 +433,64 @@
       <p style="font-size:.85rem;"><strong id="stat-contatti">0</strong> persone hanno lasciato un contatto per la waitlist.</p>
 
       <button class="admin-btn" id="refresh-btn">Aggiorna</button>
+      <button class="admin-btn" id="logout-btn" style="background:transparent;color:var(--terracotta-dark);box-shadow:none;">Esci</button>
     </div>
 
-    <p class="admin-note">Questa vista è raggiungibile solo aggiungendo <code>?admin=1</code> all'URL. Se l'endpoint API non è ancora configurato, vedi <code>README.md</code> nel repository.</p>
+    <p class="admin-note">Questa vista è raggiungibile solo aggiungendo <code>?admin=1</code> all'URL ed effettuando l'accesso con un account admin autorizzato in Firebase Authentication. Vedi <code>README.md</code> nel repository per la configurazione.</p>
   </div>
 </div>
 
-<script>
-(function(){
-  "use strict";
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
+  import {
+    initializeFirestore,
+    getFirestore,
+    persistentLocalCache,
+    collection,
+    addDoc,
+    getDocs,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+  import {
+    getAuth,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 
-  // ---- CONFIGURAZIONE ----------------------------------------------------
-  // Incolla qui l'URL del Web App di Google Apps Script (vedi apps-script/Code.gs
-  // e README.md per le istruzioni di deploy). Finché resta vuoto, le iscrizioni
-  // vengono comunque raccolte in una coda locale (localStorage) in attesa di
-  // connessione/endpoint, così nessuna risposta va persa alla base della scalinata.
-  var CONFIG = {
-    APPS_SCRIPT_URL: ""
+  // ---- CONFIGURAZIONE FIREBASE --------------------------------------------
+  // Progetto Firebase "vicusandfabula". La apiKey di un'app web Firebase non
+  // è un segreto da nascondere: l'accesso reale ai dati è protetto dalle
+  // regole di sicurezza di Firestore/Authentication (vedi README.md).
+  var firebaseConfig = {
+    apiKey: "AIzaSyBC8PtLWjcOmkIFcNpAALg4QOOvOhna9-M",
+    authDomain: "vicusandfabula.firebaseapp.com",
+    projectId: "vicusandfabula",
+    storageBucket: "vicusandfabula.firebasestorage.app",
+    messagingSenderId: "332519515887",
+    appId: "1:332519515887:web:3d50e34fe7134410885d1a"
   };
-  // -------------------------------------------------------------------------
+  var COLLECTION_NAME = "risposte";
+  // --------------------------------------------------------------------------
+
+  var app = initializeApp(firebaseConfig);
+  var auth = getAuth(app);
+
+  var db;
+  try {
+    // Cache locale persistente: le iscrizioni scritte con connessione dati
+    // debole vengono registrate subito e sincronizzate da sole quando la
+    // connessione torna disponibile, senza bloccare la UI del visitatore.
+    db = initializeFirestore(app, { localCache: persistentLocalCache() });
+  } catch (e) {
+    // Persistenza non disponibile (es. più schede aperte, browser privato):
+    // si procede comunque, solo senza cache tra ricariche di pagina.
+    db = getFirestore(app);
+  }
 
   var qs = new URLSearchParams(window.location.search);
   var isAdmin = qs.get("admin") === "1";
   var source = qs.get("source") || "diretto";
-  var QUEUE_KEY = "vf_pending_submissions";
-
-  function readQueue(){
-    try { return JSON.parse(localStorage.getItem(QUEUE_KEY)) || []; }
-    catch(e){ return []; }
-  }
-  function writeQueue(items){
-    try { localStorage.setItem(QUEUE_KEY, JSON.stringify(items)); }
-    catch(e){ /* storage non disponibile: procediamo comunque, la risposta corrente è già stata tentata */ }
-  }
-
-  function postRecord(record){
-    if (!CONFIG.APPS_SCRIPT_URL) {
-      return Promise.reject(new Error("endpoint non configurato"));
-    }
-    // text/plain evita la preflight CORS con Google Apps Script Web App.
-    return fetch(CONFIG.APPS_SCRIPT_URL, {
-      method: "POST",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify(record)
-    }).then(function(res){
-      if (!res.ok) throw new Error("risposta server non valida");
-      return res;
-    });
-  }
-
-  function flushQueue(){
-    var queue = readQueue();
-    if (!queue.length || !CONFIG.APPS_SCRIPT_URL) return;
-    var remaining = [];
-    var chain = Promise.resolve();
-    queue.forEach(function(rec){
-      chain = chain.then(function(){
-        return postRecord(rec).catch(function(){ remaining.push(rec); });
-      });
-    });
-    chain.then(function(){ writeQueue(remaining); });
-  }
-
-  window.addEventListener("online", flushQueue);
 
   function initLanding(){
     var form = document.getElementById("vf-form");
@@ -524,29 +529,26 @@
       }
 
       var record = {
-        timestamp: new Date().toISOString(),
         fasciaOraria: fasciaValue || null,
-        dataOggi: new Date().toISOString().slice(0,10),
+        dataOggi: new Date().toISOString().slice(0, 10),
         provenienza: provenienza,
         mezzoTrasporto: mezzo,
         contatto: contatto || null,
-        source: source
+        source: source,
+        createdAt: serverTimestamp()
       };
 
       btn.disabled = true;
       btn.textContent = "Invio in corso…";
 
-      postRecord(record)
-        .catch(function(){
-          // Nessun endpoint configurato o rete assente: mettiamo in coda,
-          // verrà inviata automaticamente al primo endpoint/connessione utile.
-          var q = readQueue();
-          q.push(record);
-          writeQueue(q);
-        })
-        .then(function(){
-          showSuccess(!!contatto);
-        });
+      // Non blocchiamo la conferma sull'esito della scrittura remota: la
+      // cache locale persistente di Firestore garantisce che il dato non
+      // vada perso anche con connessione instabile alla base della scalinata.
+      addDoc(collection(db, COLLECTION_NAME), record).catch(function(err){
+        console.warn("Sincronizzazione posticipata:", err);
+      });
+
+      showSuccess(!!contatto);
     });
 
     function showSuccess(hasContact){
@@ -560,21 +562,18 @@
         ? "Ti avviseremo al lancio di Vicus & Fabula con il tuo sconto dedicato."
         : "Ogni risposta ci aiuta a costruire l'esperienza giusta per chi visita Caltagirone.";
     }
-
-    // Prova a svuotare eventuali iscrizioni rimaste in coda da visite precedenti.
-    flushQueue();
   }
 
   function bar(container, dataObj, total){
     container.innerHTML = "";
-    var entries = Object.keys(dataObj).sort(function(a,b){ return dataObj[b]-dataObj[a]; });
+    var entries = Object.keys(dataObj).sort(function(a, b){ return dataObj[b] - dataObj[a]; });
     if (!entries.length){
       container.innerHTML = '<p style="color:var(--ink-soft);font-size:.85rem;">Nessun dato ancora.</p>';
       return;
     }
     entries.forEach(function(key){
       var count = dataObj[key];
-      var pct = total ? Math.round((count/total)*100) : 0;
+      var pct = total ? Math.round((count / total) * 100) : 0;
       var row = document.createElement("div");
       row.className = "bar-row";
       row.innerHTML =
@@ -584,50 +583,83 @@
     });
   }
 
+  function incr(obj, key){
+    var k = key || "non specificato";
+    obj[k] = (obj[k] || 0) + 1;
+  }
+
   function initAdmin(){
     document.getElementById("landing").classList.add("hidden");
     document.getElementById("admin-view").classList.add("show");
 
+    var loginEl = document.getElementById("admin-login");
+    var loginMsg = document.getElementById("admin-login-msg");
     var loadingEl = document.getElementById("admin-loading");
     var errorEl = document.getElementById("admin-error");
     var contentEl = document.getElementById("admin-content");
 
-    function load(){
+    function loadStats(){
       loadingEl.style.display = "block";
       errorEl.style.display = "none";
       contentEl.style.display = "none";
 
-      if (!CONFIG.APPS_SCRIPT_URL){
-        loadingEl.style.display = "none";
-        errorEl.style.display = "block";
-        errorEl.textContent = "Endpoint API non configurato. Imposta CONFIG.APPS_SCRIPT_URL in index.html (vedi README.md).";
-        return;
-      }
+      getDocs(collection(db, COLLECTION_NAME))
+        .then(function(snapshot){
+          var stats = { totale: 0, fasciaOraria: {}, provenienza: {}, mezzoTrasporto: {}, source: {}, conContatto: 0 };
+          snapshot.forEach(function(doc){
+            var d = doc.data();
+            stats.totale++;
+            incr(stats.fasciaOraria, d.fasciaOraria);
+            incr(stats.provenienza, d.provenienza);
+            incr(stats.mezzoTrasporto, d.mezzoTrasporto);
+            incr(stats.source, d.source);
+            if (d.contatto) stats.conContatto++;
+          });
 
-      fetch(CONFIG.APPS_SCRIPT_URL + "?action=stats")
-        .then(function(res){
-          if (!res.ok) throw new Error("errore risposta server");
-          return res.json();
-        })
-        .then(function(data){
           loadingEl.style.display = "none";
           contentEl.style.display = "block";
-          document.getElementById("stat-total").textContent = data.totale || 0;
-          document.getElementById("stat-contatti").textContent = data.conContatto || 0;
-          bar(document.getElementById("bd-fascia"), data.fasciaOraria || {}, data.totale);
-          bar(document.getElementById("bd-provenienza"), data.provenienza || {}, data.totale);
-          bar(document.getElementById("bd-mezzo"), data.mezzoTrasporto || {}, data.totale);
-          bar(document.getElementById("bd-source"), data.source || {}, data.totale);
+          document.getElementById("stat-total").textContent = stats.totale;
+          document.getElementById("stat-contatti").textContent = stats.conContatto;
+          bar(document.getElementById("bd-fascia"), stats.fasciaOraria, stats.totale);
+          bar(document.getElementById("bd-provenienza"), stats.provenienza, stats.totale);
+          bar(document.getElementById("bd-mezzo"), stats.mezzoTrasporto, stats.totale);
+          bar(document.getElementById("bd-source"), stats.source, stats.totale);
         })
         .catch(function(err){
           loadingEl.style.display = "none";
           errorEl.style.display = "block";
-          errorEl.textContent = "Impossibile caricare i dati (" + err.message + "). Controlla connessione e configurazione dell'endpoint.";
+          errorEl.className = "form-msg show error";
+          errorEl.textContent = "Impossibile caricare i dati (" + err.message + "). Verifica connessione e regole Firestore.";
         });
     }
 
-    document.getElementById("refresh-btn").addEventListener("click", load);
-    load();
+    document.getElementById("admin-login-btn").addEventListener("click", function(){
+      var email = document.getElementById("admin-email").value.trim();
+      var password = document.getElementById("admin-password").value;
+      loginMsg.className = "form-msg error";
+      signInWithEmailAndPassword(auth, email, password).catch(function(){
+        loginMsg.className = "form-msg show error";
+        loginMsg.textContent = "Accesso non riuscito: controlla email e password.";
+      });
+    });
+
+    document.getElementById("logout-btn").addEventListener("click", function(){
+      signOut(auth);
+    });
+
+    document.getElementById("refresh-btn").addEventListener("click", loadStats);
+
+    onAuthStateChanged(auth, function(user){
+      if (user){
+        loginEl.style.display = "none";
+        loadStats();
+      } else {
+        loginEl.style.display = "block";
+        loadingEl.style.display = "none";
+        errorEl.style.display = "none";
+        contentEl.style.display = "none";
+      }
+    });
   }
 
   document.addEventListener("DOMContentLoaded", function(){
@@ -637,7 +669,6 @@
       initLanding();
     }
   });
-})();
 </script>
 </body>
 </html>
