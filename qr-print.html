@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vicus &amp; Fabula — Genera QR per il cartello</title>
+<script src="vendor/qrcode-generator.js"></script>
+<style>
+  :root{
+    --terracotta:#C1440E; --ocra:#E3A857; --maiolica:#1E5F7C; --cream:#FBF2E3; --ink:#3A2A1C;
+  }
+  body{
+    font-family:-apple-system,Segoe UI,sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    margin:0;
+    padding:24px 16px 60px;
+  }
+  .wrap{max-width:460px;margin:0 auto;}
+  h1{font-size:1.4rem;color:var(--terracotta);margin-bottom:4px;}
+  p.sub{color:#6B5847;font-size:.9rem;margin-top:0;}
+  label{display:block;font-weight:700;font-size:.85rem;margin:16px 0 6px;}
+  input, select{
+    width:100%;padding:11px 12px;border-radius:10px;border:2px solid var(--ocra);
+    font-size:1rem;box-sizing:border-box;background:#fff;color:var(--ink);
+  }
+  button{
+    margin-top:18px;width:100%;background:var(--terracotta);color:#fff;border:none;
+    padding:14px;border-radius:12px;font-weight:800;font-size:1rem;cursor:pointer;
+  }
+  #qr-preview{
+    margin:26px auto 10px;padding:20px;background:#fff;border-radius:16px;
+    display:flex;justify-content:center;box-shadow:0 8px 24px rgba(0,0,0,.1);
+  }
+  #qr-preview canvas, #qr-preview img{width:100%;max-width:280px;height:auto;}
+  #url-preview{
+    text-align:center;font-size:.8rem;color:#6B5847;word-break:break-all;margin-bottom:10px;
+  }
+  .note{font-size:.78rem;color:#6B5847;margin-top:22px;line-height:1.5;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Genera il QR per il cartello</h1>
+  <p class="sub">Strumento ad uso interno: crea l'immagine QR ad alta risoluzione da stampare alla base della Scala di Santa Maria del Monte.</p>
+
+  <label for="base-url">URL della landing page</label>
+  <input type="text" id="base-url" placeholder="https://tuo-utente.github.io/Vicus-Fabula/">
+
+  <label for="source">Parametro di tracciamento (source)</label>
+  <input type="text" id="source" value="qr-scala">
+
+  <label for="size">Risoluzione immagine (px, lato quadrato)</label>
+  <select id="size">
+    <option value="1024">1024 × 1024 (schermo / bozza)</option>
+    <option value="2048" selected>2048 × 2048 (stampa consigliata)</option>
+    <option value="3000">3000 × 3000 (stampa grande formato)</option>
+  </select>
+
+  <button id="generate-btn">Genera anteprima</button>
+
+  <div id="qr-preview"><span style="color:#999;font-size:.85rem;">L'anteprima apparirà qui</span></div>
+  <div id="url-preview"></div>
+  <button id="download-btn" style="display:none;background:var(--maiolica);">Scarica PNG ad alta risoluzione</button>
+
+  <p class="note">
+    L'URL generato include sempre <code>?source=qr-scala</code> (o il valore scelto sopra) come parametro
+    in query string: permette in futuro di distinguere il traffico proveniente dal cartello fisico
+    da quello arrivato tramite altri canali (social, passaparola, ecc.), anche se oggi non è ancora
+    collegato un vero backend di analytics.
+  </p>
+</div>
+
+<script>
+(function(){
+  var preview = document.getElementById("qr-preview");
+  var urlPreview = document.getElementById("url-preview");
+  var downloadBtn = document.getElementById("download-btn");
+  var lastCanvas = null;
+
+  function buildUrl(){
+    var base = document.getElementById("base-url").value.trim() || (location.origin + location.pathname.replace("qr-print.html","index.html"));
+    var source = document.getElementById("source").value.trim() || "qr-scala";
+    var sep = base.indexOf("?") === -1 ? "?" : "&";
+    return base + sep + "source=" + encodeURIComponent(source);
+  }
+
+  // Renderizza il QR su un canvas alla risoluzione richiesta, con quiet zone
+  // di 4 moduli come da specifica, per una stampa nitida.
+  function renderQrCanvas(text, targetSize){
+    var qr = qrcode(0, "H");
+    qr.addData(text);
+    qr.make();
+
+    var moduleCount = qr.getModuleCount();
+    var marginModules = 4;
+    var totalModules = moduleCount + marginModules * 2;
+    var cellSize = Math.max(1, Math.floor(targetSize / totalModules));
+    var canvasSize = cellSize * totalModules;
+
+    var canvas = document.createElement("canvas");
+    canvas.width = canvasSize;
+    canvas.height = canvasSize;
+    var ctx = canvas.getContext("2d");
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fillRect(0, 0, canvasSize, canvasSize);
+    ctx.fillStyle = "#000000";
+    for (var r = 0; r < moduleCount; r++){
+      for (var c = 0; c < moduleCount; c++){
+        if (qr.isDark(r, c)){
+          ctx.fillRect((c + marginModules) * cellSize, (r + marginModules) * cellSize, cellSize, cellSize);
+        }
+      }
+    }
+    return canvas;
+  }
+
+  function generate(){
+    var url = buildUrl();
+    var size = parseInt(document.getElementById("size").value, 10);
+    preview.innerHTML = "";
+    urlPreview.textContent = url;
+
+    lastCanvas = renderQrCanvas(url, size);
+    preview.appendChild(lastCanvas);
+    downloadBtn.style.display = "block";
+  }
+
+  document.getElementById("generate-btn").addEventListener("click", generate);
+
+  downloadBtn.addEventListener("click", function(){
+    if (!lastCanvas) return;
+    var link = document.createElement("a");
+    link.download = "vicus-fabula-qr-scala.png";
+    link.href = lastCanvas.toDataURL("image/png");
+    link.click();
+  });
+
+  // Precompila con l'URL corrente della pagina come suggerimento di partenza.
+  document.getElementById("base-url").value = location.origin + location.pathname.replace("qr-print.html", "index.html");
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Vicus &amp; Fabula — Caccia al tesoro in AR a Caltagirone</title>
+<meta name="description" content="Vicus & Fabula: una caccia al tesoro in realtà aumentata nel centro storico di Caltagirone. Iscriviti alla lista d'attesa e sblocca lo sconto di lancio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Mulish:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --terracotta: #C1440E;
+    --terracotta-dark: #8A2E0A;
+    --ocra: #E3A857;
+    --ocra-light: #F6E2B8;
+    --maiolica: #1E5F7C;
+    --maiolica-dark: #123B4F;
+    --cream: #FBF2E3;
+    --ink: #3A2A1C;
+    --ink-soft: #6B5847;
+    --card: #FFFFFF;
+    --radius: 18px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Mulish', -apple-system, sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Cormorant Garamond', Georgia, serif;
+    font-weight:700;
+    margin:0 0 .4em;
+    color:var(--terracotta-dark);
+  }
+  .wrap{max-width:480px;margin:0 auto;padding:0 20px;}
+  a{color:inherit;}
+
+  /* Ceramic tile divider */
+  .tile-divider{
+    height:14px;
+    background-image:
+      linear-gradient(45deg, var(--maiolica) 25%, transparent 25%, transparent 75%, var(--maiolica) 75%),
+      linear-gradient(45deg, var(--maiolica) 25%, transparent 25%, transparent 75%, var(--maiolica) 75%);
+    background-size:14px 14px;
+    background-position:0 0, 7px 7px;
+    background-color:var(--ocra);
+  }
+
+  /* Hero */
+  .hero{
+    background:linear-gradient(160deg, var(--terracotta) 0%, var(--terracotta-dark) 45%, var(--maiolica-dark) 100%);
+    color:#fff;
+    padding:36px 0 30px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero .wrap{position:relative;z-index:2;}
+  .eyebrow{
+    display:inline-block;
+    font-size:.72rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    background:rgba(255,255,255,.16);
+    border:1px solid rgba(255,255,255,.35);
+    padding:5px 12px;
+    border-radius:999px;
+    margin-bottom:16px;
+  }
+  .hero h1{
+    color:#fff;
+    font-size:2.6rem;
+    line-height:1.05;
+    margin-bottom:10px;
+    text-shadow:0 2px 12px rgba(0,0,0,.25);
+  }
+  .hero h1 span{color:var(--ocra-light);}
+  .tagline{
+    font-size:1.05rem;
+    max-width:340px;
+    margin:0 auto 22px;
+    color:#F9E9CE;
+  }
+  .hero-art{
+    margin:18px auto 24px;
+    width:100%;
+    max-width:320px;
+    aspect-ratio:4/3;
+    border-radius:var(--radius);
+    background:
+      radial-gradient(circle at 30% 20%, rgba(255,255,255,.25), transparent 45%),
+      linear-gradient(180deg, var(--ocra) 0%, var(--terracotta) 55%, var(--maiolica-dark) 100%);
+    position:relative;
+    box-shadow:0 14px 30px rgba(0,0,0,.35), inset 0 0 0 3px rgba(255,255,255,.25);
+    overflow:hidden;
+  }
+  .hero-art svg{position:absolute;inset:0;width:100%;height:100%;}
+  .hero-art .caption{
+    position:absolute;bottom:8px;left:0;right:0;
+    text-align:center;font-size:.65rem;letter-spacing:.08em;
+    text-transform:uppercase;color:rgba(255,255,255,.85);
+  }
+  .cta-btn{
+    display:inline-block;
+    background:var(--ocra);
+    color:var(--terracotta-dark);
+    font-weight:800;
+    font-size:1.02rem;
+    padding:15px 28px;
+    border-radius:999px;
+    text-decoration:none;
+    box-shadow:0 10px 22px rgba(0,0,0,.28);
+    border:none;
+    cursor:pointer;
+    transition:transform .15s ease;
+  }
+  .cta-btn:active{transform:scale(.97);}
+
+  /* About */
+  .about{padding:34px 0 8px;}
+  .about p{color:var(--ink-soft);margin:0 0 14px;}
+  .feature-list{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:10px;}
+  .feature-list li{
+    background:var(--card);
+    border:1px solid #EEDFC4;
+    border-left:5px solid var(--maiolica);
+    border-radius:12px;
+    padding:12px 14px;
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    font-size:.95rem;
+  }
+  .feature-list .ic{font-size:1.25rem;line-height:1;}
+
+  /* Form */
+  .form-section{padding:36px 0 10px;}
+  .form-card{
+    background:var(--card);
+    border-radius:var(--radius);
+    padding:22px 18px 24px;
+    box-shadow:0 10px 30px rgba(90,50,10,.1);
+    border:1px solid #F0E1C0;
+  }
+  .form-section h2{font-size:1.6rem;}
+  .form-sub{color:var(--ink-soft);font-size:.92rem;margin:0 0 20px;}
+  label.field-label{
+    display:block;
+    font-weight:700;
+    font-size:.86rem;
+    margin:16px 0 8px;
+    color:var(--terracotta-dark);
+  }
+  .pill-group{display:flex;gap:8px;flex-wrap:wrap;}
+  .pill{
+    flex:1;
+    min-width:90px;
+    text-align:center;
+    padding:10px 8px;
+    border-radius:999px;
+    border:2px solid var(--ocra-light);
+    background:#fff;
+    font-weight:700;
+    font-size:.85rem;
+    color:var(--ink-soft);
+    cursor:pointer;
+    user-select:none;
+    transition:all .15s ease;
+  }
+  .pill.active{
+    background:var(--maiolica);
+    border-color:var(--maiolica);
+    color:#fff;
+  }
+  select, input[type=text]{
+    width:100%;
+    padding:13px 14px;
+    border-radius:12px;
+    border:2px solid var(--ocra-light);
+    font-size:1rem;
+    font-family:inherit;
+    background:#fff;
+    color:var(--ink);
+    appearance:none;
+    -webkit-appearance:none;
+  }
+  select{
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='%23C1440E' d='M5.5 7.5l4.5 4.5 4.5-4.5z'/></svg>");
+    background-repeat:no-repeat;
+    background-position:right 12px center;
+    padding-right:36px;
+  }
+  select:focus, input:focus{outline:none;border-color:var(--terracotta);}
+  .consent{
+    display:flex;
+    gap:8px;
+    margin-top:10px;
+    font-size:.78rem;
+    color:var(--ink-soft);
+    line-height:1.4;
+  }
+  .consent input{width:16px;height:16px;flex:0 0 auto;margin-top:2px;}
+  .submit-btn{
+    width:100%;
+    margin-top:20px;
+    background:var(--terracotta);
+    color:#fff;
+    font-weight:800;
+    font-size:1.02rem;
+    padding:16px;
+    border:none;
+    border-radius:14px;
+    cursor:pointer;
+    box-shadow:0 10px 22px rgba(193,68,14,.35);
+  }
+  .submit-btn:disabled{opacity:.6;}
+  .form-msg{
+    margin-top:14px;
+    font-size:.85rem;
+    padding:10px 12px;
+    border-radius:10px;
+    display:none;
+  }
+  .form-msg.show{display:block;}
+  .form-msg.error{background:#FBEAE5;color:#9C2A0F;border:1px solid #F0BFAE;}
+  .form-msg.info{background:#EAF3F6;color:var(--maiolica-dark);border:1px solid #CBE2EA;}
+
+  .success-card{
+    display:none;
+    text-align:center;
+    padding:10px 4px 6px;
+  }
+  .success-card.show{display:block;}
+  .success-card .stamp{font-size:2.6rem;margin-bottom:6px;}
+  .success-card h3{font-size:1.3rem;color:var(--maiolica-dark);}
+  .success-card p{color:var(--ink-soft);font-size:.92rem;}
+
+  footer{
+    text-align:center;
+    padding:34px 0 40px;
+    color:var(--ink-soft);
+    font-size:.78rem;
+  }
+  footer .fw{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1rem;color:var(--terracotta-dark);}
+
+  /* Admin */
+  #admin-view{display:none;}
+  #admin-view.show{display:block;}
+  #landing.hidden{display:none;}
+  .admin-wrap{max-width:520px;margin:0 auto;padding:24px 18px 60px;}
+  .admin-wrap h1{font-size:1.5rem;}
+  .stat-big{
+    background:var(--maiolica-dark);
+    color:#fff;
+    border-radius:16px;
+    padding:22px;
+    text-align:center;
+    margin:18px 0;
+  }
+  .stat-big .num{font-size:2.6rem;font-weight:800;font-family:'Cormorant Garamond',serif;}
+  .stat-big .lab{font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;opacity:.85;}
+  .breakdown{margin:22px 0;}
+  .breakdown h3{font-size:1rem;color:var(--terracotta-dark);margin-bottom:10px;}
+  .bar-row{margin-bottom:8px;font-size:.85rem;}
+  .bar-row .bar-label{display:flex;justify-content:space-between;margin-bottom:3px;}
+  .bar-track{background:#EFE1C8;border-radius:6px;height:9px;overflow:hidden;}
+  .bar-fill{background:var(--terracotta);height:100%;border-radius:6px;}
+  .admin-btn{
+    background:var(--maiolica);color:#fff;border:none;border-radius:10px;
+    padding:10px 16px;font-weight:700;cursor:pointer;font-size:.85rem;
+  }
+  .admin-note{font-size:.78rem;color:var(--ink-soft);margin-top:26px;line-height:1.5;}
+</style>
+</head>
+<body>
+
+<!-- ===================== LANDING VIEW ===================== -->
+<div id="landing">
+
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Caltagirone · Centro Storico</span>
+      <h1>Vicus <span>&amp;</span> Fabula</h1>
+      <p class="tagline">Una caccia al tesoro in realtà aumentata tra le maioliche e i vicoli di Caltagirone. Si gioca dal browser, in pochi minuti.</p>
+
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 320 240" preserveAspectRatio="none">
+          <polygon points="0,240 0,150 40,150 40,170 80,170 80,140 120,140 120,160 160,160 160,120 200,120 200,150 240,150 240,100 320,100 320,240" fill="rgba(0,0,0,0.18)"/>
+          <g stroke="rgba(255,255,255,0.55)" stroke-width="1">
+            <line x1="0" y1="150" x2="320" y2="150"/>
+            <line x1="0" y1="170" x2="320" y2="170"/>
+            <line x1="0" y1="190" x2="320" y2="190"/>
+            <line x1="0" y1="210" x2="320" y2="210"/>
+          </g>
+          <circle cx="250" cy="55" r="26" fill="rgba(255,235,180,0.85)"/>
+        </svg>
+        <span class="caption">Scala di Santa Maria del Monte — illustrazione segnaposto</span>
+      </div>
+
+      <a href="#iscrizione" class="cta-btn">Prenota il tuo posto →</a>
+    </div>
+  </section>
+
+  <div class="tile-divider" aria-hidden="true"></div>
+
+  <section class="about">
+    <div class="wrap">
+      <h2>Di cosa si tratta</h2>
+      <p><strong>Vicus &amp; Fabula</strong> è un gioco a caccia al tesoro in realtà aumentata (WebAR): si gioca direttamente dal browser dello smartphone, senza scaricare nessuna app.</p>
+      <p>Seguendo enigmi e indizi legati alla storia, all'arte e alla tradizione ceramica della città, esplorerai luoghi come la <strong>Scala di Santa Maria del Monte</strong>, il centro storico barocco e le botteghe artigiane.</p>
+      <p>Pensato per chi visita Caltagirone in giornata: un'esperienza di <strong>1-2 ore</strong>, da vivere da soli, in coppia, in famiglia o in gruppo.</p>
+
+      <ul class="feature-list">
+        <li><span class="ic">🧩</span><span>Enigmi ambientati nei luoghi reali della città</span></li>
+        <li><span class="ic">📜</span><span>Narrazione storico-culturale tra arte, storia e ceramica</span></li>
+        <li><span class="ic">👥</span><span>Esperienza multiplayer, perfetta per gruppi e famiglie</span></li>
+        <li><span class="ic">📱</span><span>Nessuna app da installare: si gioca dal browser</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="form-section" id="iscrizione">
+    <div class="wrap">
+      <div class="form-card">
+
+        <div id="form-intro">
+          <h2>Sei tra i primi a scoprirlo</h2>
+          <p class="form-sub">Rispondi in 20 secondi: ci aiuti a capire chi visita Caltagirone e sblocchi lo sconto di lancio.</p>
+
+          <form id="vf-form">
+            <label class="field-label">Quando hai visitato Caltagirone oggi? <span style="font-weight:400;color:var(--ink-soft);">(facoltativo)</span></label>
+            <div class="pill-group" id="fascia-group">
+              <div class="pill" data-value="mattina">Mattina</div>
+              <div class="pill" data-value="pomeriggio">Pomeriggio</div>
+              <div class="pill" data-value="sera">Sera</div>
+            </div>
+
+            <label class="field-label" for="provenienza">Da dove vieni?</label>
+            <select id="provenienza" required>
+              <option value="" disabled selected>Seleziona…</option>
+              <option value="Catania">Catania</option>
+              <option value="Siracusa">Siracusa</option>
+              <option value="Altra provincia siciliana">Altra provincia siciliana</option>
+              <option value="Altra regione italiana">Altra regione italiana</option>
+              <option value="Estero">Estero</option>
+              <option value="Residente a Caltagirone/zona">Residente a Caltagirone/zona</option>
+            </select>
+
+            <label class="field-label" for="mezzo">Come sei arrivato a Caltagirone?</label>
+            <select id="mezzo" required>
+              <option value="" disabled selected>Seleziona…</option>
+              <option value="Auto propria">Auto propria</option>
+              <option value="Pullman/tour organizzato">Pullman / tour organizzato</option>
+              <option value="Mezzi pubblici">Mezzi pubblici</option>
+              <option value="Altro">Altro</option>
+            </select>
+
+            <label class="field-label" for="contatto">Email o numero di telefono <span style="font-weight:400;color:var(--ink-soft);">(facoltativo, per lo sconto di lancio)</span></label>
+            <input type="text" id="contatto" placeholder="nome@email.it oppure 333 1234567" autocomplete="off">
+            <div class="consent">
+              <input type="checkbox" id="consent">
+              <label for="consent">Userò il tuo contatto solo per avvisarti del lancio di Vicus &amp; Fabula.</label>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submit-btn">Iscrivimi e sblocca lo sconto di lancio</button>
+            <div class="form-msg" id="form-msg"></div>
+          </form>
+        </div>
+
+        <div class="success-card" id="success-card">
+          <div class="stamp">🏺</div>
+          <h3 id="success-title">Grazie!</h3>
+          <p id="success-text">Sei ufficialmente tra i primi a scoprire Vicus &amp; Fabula.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="fw">Vicus &amp; Fabula</div>
+    <div>Caltagirone, Sicilia — in arrivo</div>
+  </footer>
+</div>
+
+<!-- ===================== ADMIN VIEW ===================== -->
+<div id="admin-view">
+  <div class="admin-wrap">
+    <h1>Pannello rilevazione</h1>
+    <p style="color:var(--ink-soft);font-size:.85rem;">Vicus &amp; Fabula — dati raccolti dal form in tempo reale.</p>
+
+    <div id="admin-loading" style="padding:30px 0;text-align:center;color:var(--ink-soft);">Caricamento dati…</div>
+    <div id="admin-error" class="form-msg error" style="display:none;"></div>
+
+    <div id="admin-content" style="display:none;">
+      <div class="stat-big">
+        <div class="num" id="stat-total">0</div>
+        <div class="lab">Risposte totali</div>
+      </div>
+
+      <div class="breakdown">
+        <h3>Fascia oraria</h3>
+        <div id="bd-fascia"></div>
+      </div>
+      <div class="breakdown">
+        <h3>Provenienza</h3>
+        <div id="bd-provenienza"></div>
+      </div>
+      <div class="breakdown">
+        <h3>Mezzo di trasporto</h3>
+        <div id="bd-mezzo"></div>
+      </div>
+      <div class="breakdown">
+        <h3>Canale (source)</h3>
+        <div id="bd-source"></div>
+      </div>
+      <p style="font-size:.85rem;"><strong id="stat-contatti">0</strong> persone hanno lasciato un contatto per la waitlist.</p>
+
+      <button class="admin-btn" id="refresh-btn">Aggiorna</button>
+    </div>
+
+    <p class="admin-note">Questa vista è raggiungibile solo aggiungendo <code>?admin=1</code> all'URL. Se l'endpoint API non è ancora configurato, vedi <code>README.md</code> nel repository.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---- CONFIGURAZIONE ----------------------------------------------------
+  // Incolla qui l'URL del Web App di Google Apps Script (vedi apps-script/Code.gs
+  // e README.md per le istruzioni di deploy). Finché resta vuoto, le iscrizioni
+  // vengono comunque raccolte in una coda locale (localStorage) in attesa di
+  // connessione/endpoint, così nessuna risposta va persa alla base della scalinata.
+  var CONFIG = {
+    APPS_SCRIPT_URL: ""
+  };
+  // -------------------------------------------------------------------------
+
+  var qs = new URLSearchParams(window.location.search);
+  var isAdmin = qs.get("admin") === "1";
+  var source = qs.get("source") || "diretto";
+  var QUEUE_KEY = "vf_pending_submissions";
+
+  function readQueue(){
+    try { return JSON.parse(localStorage.getItem(QUEUE_KEY)) || []; }
+    catch(e){ return []; }
+  }
+  function writeQueue(items){
+    try { localStorage.setItem(QUEUE_KEY, JSON.stringify(items)); }
+    catch(e){ /* storage non disponibile: procediamo comunque, la risposta corrente è già stata tentata */ }
+  }
+
+  function postRecord(record){
+    if (!CONFIG.APPS_SCRIPT_URL) {
+      return Promise.reject(new Error("endpoint non configurato"));
+    }
+    // text/plain evita la preflight CORS con Google Apps Script Web App.
+    return fetch(CONFIG.APPS_SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(record)
+    }).then(function(res){
+      if (!res.ok) throw new Error("risposta server non valida");
+      return res;
+    });
+  }
+
+  function flushQueue(){
+    var queue = readQueue();
+    if (!queue.length || !CONFIG.APPS_SCRIPT_URL) return;
+    var remaining = [];
+    var chain = Promise.resolve();
+    queue.forEach(function(rec){
+      chain = chain.then(function(){
+        return postRecord(rec).catch(function(){ remaining.push(rec); });
+      });
+    });
+    chain.then(function(){ writeQueue(remaining); });
+  }
+
+  window.addEventListener("online", flushQueue);
+
+  function initLanding(){
+    var form = document.getElementById("vf-form");
+    var fasciaGroup = document.getElementById("fascia-group");
+    var fasciaValue = "";
+    var msgEl = document.getElementById("form-msg");
+    var btn = document.getElementById("submit-btn");
+
+    fasciaGroup.addEventListener("click", function(e){
+      var pill = e.target.closest(".pill");
+      if (!pill) return;
+      var already = pill.classList.contains("active");
+      Array.prototype.forEach.call(fasciaGroup.children, function(p){ p.classList.remove("active"); });
+      if (!already){
+        pill.classList.add("active");
+        fasciaValue = pill.dataset.value;
+      } else {
+        fasciaValue = "";
+      }
+    });
+
+    function showMsg(text, kind){
+      msgEl.textContent = text;
+      msgEl.className = "form-msg show " + kind;
+    }
+
+    form.addEventListener("submit", function(e){
+      e.preventDefault();
+      var provenienza = document.getElementById("provenienza").value;
+      var mezzo = document.getElementById("mezzo").value;
+      var contatto = document.getElementById("contatto").value.trim();
+
+      if (!provenienza || !mezzo){
+        showMsg("Seleziona provenienza e mezzo di trasporto per continuare.", "error");
+        return;
+      }
+
+      var record = {
+        timestamp: new Date().toISOString(),
+        fasciaOraria: fasciaValue || null,
+        dataOggi: new Date().toISOString().slice(0,10),
+        provenienza: provenienza,
+        mezzoTrasporto: mezzo,
+        contatto: contatto || null,
+        source: source
+      };
+
+      btn.disabled = true;
+      btn.textContent = "Invio in corso…";
+
+      postRecord(record)
+        .catch(function(){
+          // Nessun endpoint configurato o rete assente: mettiamo in coda,
+          // verrà inviata automaticamente al primo endpoint/connessione utile.
+          var q = readQueue();
+          q.push(record);
+          writeQueue(q);
+        })
+        .then(function(){
+          showSuccess(!!contatto);
+        });
+    });
+
+    function showSuccess(hasContact){
+      document.getElementById("form-intro").style.display = "none";
+      var card = document.getElementById("success-card");
+      card.classList.add("show");
+      document.getElementById("success-title").textContent = hasContact
+        ? "Grazie! Sei in lista 🏺"
+        : "Grazie per il tuo contributo!";
+      document.getElementById("success-text").textContent = hasContact
+        ? "Ti avviseremo al lancio di Vicus & Fabula con il tuo sconto dedicato."
+        : "Ogni risposta ci aiuta a costruire l'esperienza giusta per chi visita Caltagirone.";
+    }
+
+    // Prova a svuotare eventuali iscrizioni rimaste in coda da visite precedenti.
+    flushQueue();
+  }
+
+  function bar(container, dataObj, total){
+    container.innerHTML = "";
+    var entries = Object.keys(dataObj).sort(function(a,b){ return dataObj[b]-dataObj[a]; });
+    if (!entries.length){
+      container.innerHTML = '<p style="color:var(--ink-soft);font-size:.85rem;">Nessun dato ancora.</p>';
+      return;
+    }
+    entries.forEach(function(key){
+      var count = dataObj[key];
+      var pct = total ? Math.round((count/total)*100) : 0;
+      var row = document.createElement("div");
+      row.className = "bar-row";
+      row.innerHTML =
+        '<div class="bar-label"><span>' + key + '</span><span>' + count + '</span></div>' +
+        '<div class="bar-track"><div class="bar-fill" style="width:' + pct + '%"></div></div>';
+      container.appendChild(row);
+    });
+  }
+
+  function initAdmin(){
+    document.getElementById("landing").classList.add("hidden");
+    document.getElementById("admin-view").classList.add("show");
+
+    var loadingEl = document.getElementById("admin-loading");
+    var errorEl = document.getElementById("admin-error");
+    var contentEl = document.getElementById("admin-content");
+
+    function load(){
+      loadingEl.style.display = "block";
+      errorEl.style.display = "none";
+      contentEl.style.display = "none";
+
+      if (!CONFIG.APPS_SCRIPT_URL){
+        loadingEl.style.display = "none";
+        errorEl.style.display = "block";
+        errorEl.textContent = "Endpoint API non configurato. Imposta CONFIG.APPS_SCRIPT_URL in index.html (vedi README.md).";
+        return;
+      }
+
+      fetch(CONFIG.APPS_SCRIPT_URL + "?action=stats")
+        .then(function(res){
+          if (!res.ok) throw new Error("errore risposta server");
+          return res.json();
+        })
+        .then(function(data){
+          loadingEl.style.display = "none";
+          contentEl.style.display = "block";
+          document.getElementById("stat-total").textContent = data.totale || 0;
+          document.getElementById("stat-contatti").textContent = data.conContatto || 0;
+          bar(document.getElementById("bd-fascia"), data.fasciaOraria || {}, data.totale);
+          bar(document.getElementById("bd-provenienza"), data.provenienza || {}, data.totale);
+          bar(document.getElementById("bd-mezzo"), data.mezzoTrasporto || {}, data.totale);
+          bar(document.getElementById("bd-source"), data.source || {}, data.totale);
+        })
+        .catch(function(err){
+          loadingEl.style.display = "none";
+          errorEl.style.display = "block";
+          errorEl.textContent = "Impossibile caricare i dati (" + err.message + "). Controlla connessione e configurazione dell'endpoint.";
+        });
+    }
+
+    document.getElementById("refresh-btn").addEventListener("click", load);
+    load();
+  }
+
+  document.addEventListener("DOMContentLoaded", function(){
+    if (isAdmin){
+      initAdmin();
+    } else {
+      initLanding();
+    }
+  });
+})();
+</script>
+</body>
+</html>
