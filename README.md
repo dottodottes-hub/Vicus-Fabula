@@ -102,14 +102,19 @@ sullo schermo.
 
 ## Lingue
 
-La landing page pubblica è disponibile in **italiano, inglese, spagnolo e
-cinese**. La lingua viene scelta automaticamente in base al browser del
-visitatore (con l'italiano come lingua di riserva), è selezionabile in ogni
-momento dal menu in alto a destra nella hero, e la scelta viene ricordata tra
-le visite successive (o forzabile con `?lang=en` nell'URL). Le traduzioni
-sono nel dizionario `I18N` dentro lo script di `index.html`: per modificare
-un testo va aggiornato in tutte e quattro le lingue. Il pannello admin
-(`?admin=1`) resta solo in italiano, essendo uno strumento a uso interno.
+La landing page pubblica è disponibile in **italiano, inglese, spagnolo,
+francese e cinese**. La lingua viene scelta automaticamente in base al
+browser del visitatore (con l'italiano come lingua di riserva), è
+selezionabile in ogni momento dal menu in alto a destra nella hero, e la
+scelta viene ricordata tra le visite successive (o forzabile con `?lang=en`
+nell'URL). Le traduzioni sono nel dizionario `I18N` dentro lo script di
+`index.html`: per modificare un testo va aggiornato in tutte e cinque le
+lingue. Il pannello admin (`?admin=1`) resta solo in italiano, essendo uno
+strumento a uso interno.
+
+Il campo "Da dove vieni?" del form ha 3 opzioni fisse (Sicilia / Italia /
+Estero), salvate su Firestore sempre con questi valori canonici in italiano
+indipendentemente dalla lingua mostrata al visitatore.
 
 ## Personalizzazione
 

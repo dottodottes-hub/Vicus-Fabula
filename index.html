@@ -310,10 +310,11 @@
 
   <section class="hero">
     <div class="lang-switch">
-      <select id="lang-select" aria-label="Lingua / Language / Idioma / 语言">
+      <select id="lang-select" aria-label="Lingua / Language / Idioma / Langue / 语言">
         <option value="it">Italiano</option>
         <option value="en">English</option>
         <option value="es">Español</option>
+        <option value="fr">Français</option>
         <option value="zh">中文</option>
       </select>
     </div>
@@ -377,12 +378,9 @@
             <label class="field-label" for="provenienza" data-i18n="labelProvenienza">Da dove vieni?</label>
             <select id="provenienza" required>
               <option value="" disabled selected data-i18n="optSelect">Seleziona…</option>
-              <option value="Catania">Catania</option>
-              <option value="Siracusa">Siracusa</option>
-              <option value="Altra provincia siciliana" data-i18n="optAltraProvincia">Altra provincia siciliana</option>
-              <option value="Altra regione italiana" data-i18n="optAltraRegione">Altra regione italiana</option>
+              <option value="Sicilia" data-i18n="optSicilia">Sicilia</option>
+              <option value="Italia" data-i18n="optItalia">Italia</option>
               <option value="Estero" data-i18n="optEstero">Estero</option>
-              <option value="Residente a Caltagirone/zona" data-i18n="optResidente">Residente a Caltagirone/zona</option>
             </select>
 
             <label class="field-label" for="mezzo" data-i18n="labelMezzo">Come sei arrivato a Caltagirone?</label>
@@ -550,10 +548,9 @@
       pillSera: "Sera",
       labelProvenienza: "Da dove vieni?",
       optSelect: "Seleziona…",
-      optAltraProvincia: "Altra provincia siciliana",
-      optAltraRegione: "Altra regione italiana",
+      optSicilia: "Sicilia",
+      optItalia: "Italia",
       optEstero: "Estero",
-      optResidente: "Residente a Caltagirone/zona",
       labelMezzo: "Come sei arrivato a Caltagirone?",
       optAutoPropria: "Auto propria",
       optPullman: "Pullman / tour organizzato",
@@ -596,10 +593,9 @@
       pillSera: "Evening",
       labelProvenienza: "Where are you from?",
       optSelect: "Select…",
-      optAltraProvincia: "Other Sicilian province",
-      optAltraRegione: "Other Italian region",
+      optSicilia: "Sicily",
+      optItalia: "Italy",
       optEstero: "Abroad",
-      optResidente: "Local resident (Caltagirone area)",
       labelMezzo: "How did you get to Caltagirone?",
       optAutoPropria: "Own car",
       optPullman: "Coach / organised tour",
@@ -642,10 +638,9 @@
       pillSera: "Noche",
       labelProvenienza: "¿De dónde vienes?",
       optSelect: "Selecciona…",
-      optAltraProvincia: "Otra provincia siciliana",
-      optAltraRegione: "Otra región italiana",
+      optSicilia: "Sicilia",
+      optItalia: "Italia",
       optEstero: "Extranjero",
-      optResidente: "Residente en Caltagirone/zona",
       labelMezzo: "¿Cómo llegaste a Caltagirone?",
       optAutoPropria: "Coche propio",
       optPullman: "Autobús / tour organizado",
@@ -663,6 +658,51 @@
       successTextContact: "Te avisaremos en el lanzamiento de Vicus & Fabula con tu descuento exclusivo.",
       successTextNoContact: "Cada respuesta nos ayuda a construir la experiencia adecuada para quienes visitan Caltagirone.",
       footerLine: "Caltagirone, Sicilia — próximamente"
+    },
+    fr: {
+      pageTitle: "Vicus & Fabula — Chasse au trésor en RA à Caltagirone",
+      metaDescription: "Vicus & Fabula : une chasse au trésor en réalité augmentée dans le centre historique de Caltagirone. Inscrivez-vous sur la liste d'attente et débloquez la remise de lancement.",
+      eyebrow: "Caltagirone · Centre historique",
+      tagline: "Une chasse au trésor en réalité augmentée parmi les majoliques et les ruelles de Caltagirone. Ça se joue depuis le navigateur, en quelques minutes.",
+      heroCaption: "Escalier de Santa Maria del Monte — illustration provisoire",
+      ctaBtn: "Réservez votre place →",
+      aboutTitle: "De quoi s'agit-il",
+      aboutP1: "<strong>Vicus &amp; Fabula</strong> est un jeu de chasse au trésor en réalité augmentée (WebAR) : on y joue directement depuis le navigateur du smartphone, sans télécharger aucune application.",
+      aboutP2: "En suivant des énigmes et des indices liés à l'histoire, à l'art et à la tradition céramique de la ville, vous explorerez des lieux comme l'<strong>Escalier de Santa Maria del Monte</strong>, le centre historique baroque et les ateliers artisanaux.",
+      aboutP3: "Pensé pour ceux qui visitent Caltagirone à la journée : une expérience de <strong>1 à 2 heures</strong>, à vivre seul, en couple, en famille ou en groupe.",
+      feature1: "Des énigmes situées dans les vrais lieux de la ville",
+      feature2: "Un récit historico-culturel entre art, histoire et céramique",
+      feature3: "Une expérience multijoueur, parfaite pour les groupes et les familles",
+      feature4: "Aucune application à installer : ça se joue depuis le navigateur",
+      formTitle: "Vous êtes parmi les premiers à le découvrir",
+      formSub: "Répondez en 20 secondes : vous nous aidez à comprendre qui visite Caltagirone et vous débloquez la remise de lancement.",
+      labelFascia: "Quand avez-vous visité Caltagirone aujourd'hui ?",
+      optNote: "(facultatif)",
+      pillMattina: "Matin",
+      pillPomeriggio: "Après-midi",
+      pillSera: "Soir",
+      labelProvenienza: "D'où venez-vous ?",
+      optSelect: "Sélectionnez…",
+      optSicilia: "Sicile",
+      optItalia: "Italie",
+      optEstero: "Étranger",
+      labelMezzo: "Comment êtes-vous arrivé à Caltagirone ?",
+      optAutoPropria: "Voiture personnelle",
+      optPullman: "Car / voyage organisé",
+      optMezziPubblici: "Transports en commun",
+      optAltroMezzo: "Autre",
+      labelContatto: "E-mail ou numéro de téléphone",
+      optNoteDiscount: "(facultatif, pour la remise de lancement)",
+      contattoPlaceholder: "nom@email.fr ou 06 12 34 56 78",
+      consentLabel: "Nous n'utiliserons votre contact que pour vous informer du lancement de Vicus & Fabula.",
+      submitBtn: "Inscrivez-moi et débloquez la remise de lancement",
+      submitting: "Envoi en cours…",
+      formErrRequired: "Sélectionnez votre provenance et votre moyen de transport pour continuer.",
+      successTitleContact: "Merci ! Vous êtes sur la liste 🏺",
+      successTitleNoContact: "Merci pour votre contribution !",
+      successTextContact: "Nous vous informerons du lancement de Vicus & Fabula avec votre remise dédiée.",
+      successTextNoContact: "Chaque réponse nous aide à construire la bonne expérience pour les visiteurs de Caltagirone.",
+      footerLine: "Caltagirone, Sicile — bientôt disponible"
     },
     zh: {
       pageTitle: "Vicus & Fabula — 卡尔塔吉罗内 AR 寻宝游戏",
@@ -688,10 +728,9 @@
       pillSera: "晚上",
       labelProvenienza: "您来自哪里?",
       optSelect: "请选择…",
-      optAltraProvincia: "西西里其他省份",
-      optAltraRegione: "意大利其他地区",
+      optSicilia: "西西里",
+      optItalia: "意大利",
       optEstero: "国外",
-      optResidente: "卡尔塔吉罗内本地居民",
       labelMezzo: "您是如何到达卡尔塔吉罗内的?",
       optAutoPropria: "自驾",
       optPullman: "大巴/跟团游",
@@ -722,6 +761,7 @@
     if (saved && I18N[saved]) return saved;
     var nav = (navigator.language || "it").toLowerCase();
     if (nav.indexOf("es") === 0) return "es";
+    if (nav.indexOf("fr") === 0) return "fr";
     if (nav.indexOf("zh") === 0) return "zh";
     if (nav.indexOf("en") === 0) return "en";
     return "it";
