@@ -1,7 +1,8 @@
 # Vicus & Fabula — Landing page
 
 Landing page single-page, mobile-first, per validare la stagionalità dell'escursionismo
-a Caltagirone e costruire la waitlist di lancio del gioco WebAR "Vicus & Fabula".
+a Caltagirone e raccogliere risposte anonime in vista del lancio del gioco
+WebAR "Vicus & Fabula", premiando chi risponde con un codice sconto immediato.
 
 Nessun framework, nessun build step: è un sito statico puro (`index.html` +
 `qr-print.html`), pensato per essere aperto direttamente da un QR code fisico
@@ -36,22 +37,23 @@ service cloud.firestore {
     match /risposte/{docId} {
       // Chiunque può inviare una risposta dal form pubblico...
       allow create: if request.resource.data.keys().hasOnly(
-                        ['fasciaOraria','dataOggi','provenienza','mezzoTrasporto','contatto','source','createdAt']
+                        ['fasciaOraria','dataOggi','provenienza','mezzoTrasporto','source','createdAt']
                       )
                     && request.resource.data.provenienza is string
                     && request.resource.data.mezzoTrasporto is string
                     && request.resource.data.source is string;
-      // ...ma solo un admin autenticato può leggere/modificare/cancellare
-      // (le risposte includono contatti personali: email/telefono).
+      // ...ma solo un admin autenticato può leggere/modificare/cancellare.
       allow read, update, delete: if request.auth != null;
     }
   }
 }
 ```
 
-Questo protegge i contatti raccolti (coerentemente con il messaggio di
-consenso mostrato nel form) pur lasciando il form pubblico liberamente
-scrivibile da chiunque scansioni il QR.
+Le risposte non includono più alcun dato personale (nessun campo email o
+telefono viene raccolto): sono statistiche anonime sulla provenienza e le
+abitudini dei visitatori. La lettura resta comunque riservata agli admin
+per non rendere pubblicamente consultabili i numeri del progetto prima del
+lancio.
 
 ### 2. Creare l'account admin
 
@@ -61,8 +63,7 @@ La vista `?admin=1` richiede un login Firebase Authentication:
 2. Authentication → Users → **Aggiungi utente**: inserisci l'email e una
    password che userai per accedere al pannello (es. `dotto.dottes@gmail.com`).
 3. Su `index.html?admin=1`, accedi con quelle credenziali per vedere i
-   conteggi aggregati (fascia oraria, provenienza, mezzo di trasporto,
-   canale, contatti raccolti).
+   conteggi aggregati (fascia oraria, provenienza, mezzo di trasporto, canale).
 
 ### 3. Configurazione già presente nel codice
 
@@ -91,6 +92,15 @@ https://tuo-dominio/index.html?source=qr-scala
 
 Il parametro `source` viene salvato con ogni risposta del form, per poter
 distinguere in futuro il traffico dal cartello fisico da altri canali.
+
+## Codice sconto
+
+Il form non raccoglie email o telefono: subito dopo aver risposto al
+questionario, il visitatore vede a schermo un codice sconto (con un pulsante
+"copia codice") da usare al lancio di Vicus & Fabula. Non essendoci un
+contatto associato, è lo stesso codice per tutti — è impostato nella
+costante `DISCOUNT_CODE` dentro lo script di `index.html` e va aggiornato lì
+se in futuro vuoi cambiarlo o generarne uno diverso per campagna.
 
 ## Resilienza offline
 
@@ -124,4 +134,5 @@ indipendentemente dalla lingua mostrata al visitatore.
 - Testi, campi del form e liste puntate sono modificabili direttamente
   nell'HTML, senza bisogno di build.
 - Il nome della collection Firestore (`risposte`) è impostato nella
-  costante `COLLECTION_NAME` dentro lo script di `index.html`.
+  costante `COLLECTION_NAME`, e il codice sconto nella costante
+  `DISCOUNT_CODE`, entrambe dentro lo script di `index.html`.

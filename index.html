@@ -233,15 +233,6 @@
     padding-right:36px;
   }
   select:focus, input:focus{outline:none;border-color:var(--terracotta);}
-  .consent{
-    display:flex;
-    gap:8px;
-    margin-top:10px;
-    font-size:.78rem;
-    color:var(--ink-soft);
-    line-height:1.4;
-  }
-  .consent input{width:16px;height:16px;flex:0 0 auto;margin-top:2px;}
   .submit-btn{
     width:100%;
     margin-top:20px;
@@ -276,6 +267,44 @@
   .success-card .stamp{font-size:2.6rem;margin-bottom:6px;}
   .success-card h3{font-size:1.3rem;color:var(--maiolica-dark);}
   .success-card p{color:var(--ink-soft);font-size:.92rem;}
+
+  .discount-box{
+    margin-top:18px;
+    padding:18px 16px 16px;
+    border-radius:14px;
+    background:var(--ocra-light);
+    border:2px dashed var(--terracotta);
+  }
+  .discount-label{
+    font-size:.72rem;
+    font-weight:700;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--terracotta-dark);
+  }
+  .discount-code{
+    font-family:'Cormorant Garamond', Georgia, serif;
+    font-weight:700;
+    font-size:2rem;
+    letter-spacing:.1em;
+    color:var(--terracotta-dark);
+    margin:6px 0 12px;
+  }
+  .copy-btn{
+    background:var(--maiolica);
+    color:#fff;
+    border:none;
+    border-radius:999px;
+    padding:10px 22px;
+    font-weight:700;
+    font-size:.85rem;
+    cursor:pointer;
+  }
+  .discount-hint{
+    margin-top:12px;
+    font-size:.8rem;
+    color:var(--ink-soft);
+  }
 
   footer{
     text-align:center;
@@ -338,91 +367,68 @@
       <div class="hero-art" aria-hidden="true">
         <svg viewBox="0 0 320 240" preserveAspectRatio="none">
           <defs>
-            <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#F9E6C0"/>
-              <stop offset="42%" stop-color="#E3A857"/>
-              <stop offset="72%" stop-color="#C1440E"/>
+            <radialGradient id="bgGlow" cx="50%" cy="42%" r="70%">
+              <stop offset="0%" stop-color="#C1440E"/>
+              <stop offset="55%" stop-color="#8A2E0A"/>
               <stop offset="100%" stop-color="#123B4F"/>
-            </linearGradient>
-            <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#FFF8E4" stop-opacity="0.95"/>
-              <stop offset="55%" stop-color="#FFE9B8" stop-opacity="0.45"/>
-              <stop offset="100%" stop-color="#FFE9B8" stop-opacity="0"/>
             </radialGradient>
-            <pattern id="tileBlue" width="10" height="10" patternUnits="userSpaceOnUse">
-              <rect width="10" height="10" fill="#1E5F7C"/>
-              <circle cx="5" cy="5" r="1.9" fill="#F6E2B8" opacity="0.85"/>
-            </pattern>
-            <pattern id="tileOcra" width="10" height="10" patternUnits="userSpaceOnUse">
-              <rect width="10" height="10" fill="#E3A857"/>
-              <circle cx="5" cy="5" r="1.9" fill="#8A2E0A" opacity="0.75"/>
-            </pattern>
-            <pattern id="tileTerra" width="10" height="10" patternUnits="userSpaceOnUse">
-              <rect width="10" height="10" fill="#C1440E"/>
-              <circle cx="5" cy="5" r="1.9" fill="#FBF2E3" opacity="0.85"/>
-            </pattern>
           </defs>
 
-          <rect width="320" height="240" fill="url(#skyGrad)"/>
+          <rect width="320" height="240" fill="url(#bgGlow)"/>
 
-          <circle cx="235" cy="50" r="58" fill="url(#sunGlow)"/>
-          <circle cx="235" cy="50" r="19" fill="#FFF3D6"/>
+          <!-- enigma map card -->
+          <g transform="rotate(-3 160 120)">
+            <rect x="46" y="36" width="228" height="168" rx="8" fill="#8A2E0A" opacity="0.35"/>
+            <rect x="52" y="42" width="216" height="156" rx="8" fill="#FBF2E3"/>
+            <rect x="52.5" y="42.5" width="215" height="155" rx="7.5" fill="none" stroke="#C9A870" stroke-width="1.2"/>
 
-          <!-- soft dome silhouette behind the top of the staircase -->
-          <circle cx="160" cy="122" r="16" fill="#123B4F" opacity="0.35"/>
-          <rect x="144" y="118" width="32" height="26" fill="#123B4F" opacity="0.35"/>
-          <circle cx="160" cy="104" r="2" fill="#123B4F" opacity="0.35"/>
-          <rect x="159" y="96" width="2" height="10" fill="#123B4F" opacity="0.35"/>
+            <!-- compass rose -->
+            <g transform="translate(76,66)" stroke="#8A2E0A" stroke-width="1.3" fill="none" opacity="0.55">
+              <circle r="10"/>
+              <line x1="0" y1="-13" x2="0" y2="13"/>
+              <line x1="-13" y1="0" x2="13" y2="0"/>
+              <line x1="-8" y1="-8" x2="8" y2="8"/>
+              <line x1="-8" y1="8" x2="8" y2="-8"/>
+            </g>
 
-          <!-- corner buildings framing the staircase -->
-          <g>
-            <rect x="-15" y="168" width="66" height="72" fill="#F6E2B8"/>
-            <polygon points="-15,168 18,138 51,168" fill="#8A2E0A"/>
-            <rect x="-2" y="184" width="14" height="16" rx="1.5" fill="#123B4F" opacity="0.55"/>
-            <rect x="22" y="184" width="14" height="16" rx="1.5" fill="#123B4F" opacity="0.55"/>
-            <rect x="10" y="210" width="16" height="20" rx="1.5" fill="#8A2E0A" opacity="0.55"/>
-          </g>
-          <g>
-            <rect x="269" y="176" width="66" height="64" fill="#F6E2B8"/>
-            <polygon points="269,176 302,150 335,176" fill="#8A2E0A"/>
-            <rect x="284" y="190" width="14" height="16" rx="1.5" fill="#123B4F" opacity="0.55"/>
-            <rect x="310" y="190" width="14" height="16" rx="1.5" fill="#123B4F" opacity="0.55"/>
-          </g>
+            <!-- decorative clue glyphs -->
+            <g stroke="#8A2E0A" stroke-width="1.3" fill="none" opacity="0.45">
+              <path d="M232,58 q6,-6 12,0 q6,6 -1,10" stroke-linecap="round"/>
+              <path d="M70,168 l7,-9 7,9" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="77" cy="163" r="1.4" fill="#8A2E0A" stroke="none"/>
+            </g>
 
-          <!-- staircase, ascending bands with majolica tile risers -->
-          <g>
-            <rect x="40.0" y="224" width="240.0" height="16" fill="url(#tileTerra)"/>
-            <rect x="40.0" y="237.0" width="240.0" height="3" fill="#000" opacity="0.16"/>
-            <rect x="40.0" y="221.8" width="240.0" height="2.2" fill="#FBF2E3" opacity="0.92"/>
-            <rect x="51.0" y="208" width="218.0" height="16" fill="url(#tileOcra)"/>
-            <rect x="51.0" y="221.0" width="218.0" height="3" fill="#000" opacity="0.16"/>
-            <rect x="51.0" y="205.8" width="218.0" height="2.2" fill="#FBF2E3" opacity="0.92"/>
-            <rect x="62.0" y="192" width="196.0" height="16" fill="url(#tileBlue)"/>
-            <rect x="62.0" y="205.0" width="196.0" height="3" fill="#000" opacity="0.16"/>
-            <rect x="62.0" y="189.8" width="196.0" height="2.2" fill="#FBF2E3" opacity="0.92"/>
-            <rect x="73.0" y="176" width="174.0" height="16" fill="url(#tileTerra)"/>
-            <rect x="73.0" y="189.0" width="174.0" height="3" fill="#000" opacity="0.16"/>
-            <rect x="73.0" y="173.8" width="174.0" height="2.2" fill="#FBF2E3" opacity="0.92"/>
-            <rect x="84.0" y="160" width="152.0" height="16" fill="url(#tileOcra)"/>
-            <rect x="84.0" y="173.0" width="152.0" height="3" fill="#000" opacity="0.16"/>
-            <rect x="84.0" y="157.8" width="152.0" height="2.2" fill="#FBF2E3" opacity="0.92"/>
-            <rect x="95.0" y="144" width="130.0" height="16" fill="url(#tileBlue)"/>
-            <rect x="95.0" y="157.0" width="130.0" height="3" fill="#000" opacity="0.16"/>
-            <rect x="95.0" y="141.8" width="130.0" height="2.2" fill="#FBF2E3" opacity="0.92"/>
-            <rect x="106.0" y="128" width="108.0" height="16" fill="url(#tileTerra)"/>
-            <rect x="106.0" y="141.0" width="108.0" height="3" fill="#000" opacity="0.16"/>
-          </g>
+            <!-- dotted trail -->
+            <path d="M90,165 Q127,145 165,112 Q195,92 227,78" fill="none" stroke="#8A2E0A" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="0.5 8.5" opacity="0.8"/>
 
-          <!-- figures for scale -->
-          <g>
-            <ellipse cx="120.8" cy="224.5" rx="4.6" ry="1.2" fill="#000" opacity="0.18"/><circle cx="120.8" cy="207.0" r="4.9" fill="#3A2A1C"/><rect x="118.2" y="211.8" width="5.1" height="12.2" rx="2.6" fill="#3A2A1C"/>
-            <ellipse cx="191.3" cy="192.5" rx="3.6" ry="1.2" fill="#000" opacity="0.18"/><circle cx="191.3" cy="178.8" r="3.8" fill="#3A2A1C"/><rect x="189.3" y="182.6" width="4.0" height="9.5" rx="2.0" fill="#3A2A1C"/>
+            <!-- waypoint 1 -->
+            <circle cx="90" cy="165" r="4.5" fill="#1E5F7C"/>
+            <!-- waypoint 3 / treasure marker -->
+            <g transform="translate(227,78)" stroke="#C1440E" stroke-width="3.4" stroke-linecap="round">
+              <line x1="-6" y1="-6" x2="6" y2="6"/>
+              <line x1="-6" y1="6" x2="6" y2="-6"/>
+            </g>
+
+            <!-- magnifying glass over waypoint 2 -->
+            <g transform="translate(165,104)">
+              <circle r="17" fill="#1E5F7C" opacity="0.12" stroke="#1E5F7C" stroke-width="3.2"/>
+              <line x1="12" y1="12" x2="24" y2="24" stroke="#123B4F" stroke-width="4.6" stroke-linecap="round"/>
+            </g>
+            <circle cx="165" cy="112" r="4" fill="#1E5F7C"/>
+
+            <!-- AR viewfinder corner brackets -->
+            <g stroke="#C1440E" stroke-width="2.2" stroke-linecap="round" fill="none">
+              <path d="M138,84 v-9 h9"/>
+              <path d="M192,84 v-9 h-9"/>
+              <path d="M138,132 v9 h9"/>
+              <path d="M192,132 v9 h-9"/>
+            </g>
           </g>
 
           <!-- AR sparkle accents -->
           <g fill="#FFF3D6">
-            <path class="spark spark-a" d="M256 96 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3 Z"/>
-            <path class="spark spark-b" d="M70 92 l2 5.5 5.5 2 -5.5 2 -2 5.5 -2 -5.5 -5.5 -2 5.5 -2 Z"/>
+            <path class="spark spark-a" d="M290 46 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3 Z"/>
+            <path class="spark spark-b" d="M32 200 l2.5 6.5 6.5 2.5 -6.5 2.5 -2.5 6.5 -2.5 -6.5 -6.5 -2.5 6.5 -2.5 Z"/>
           </g>
         </svg>
         <span class="caption" data-i18n="heroCaption">Scala di Santa Maria del Monte</span>
@@ -483,22 +489,21 @@
               <option value="Altro" data-i18n="optAltroMezzo">Altro</option>
             </select>
 
-            <label class="field-label" for="contatto"><span data-i18n="labelContatto">Email o numero di telefono</span> <span style="font-weight:400;color:var(--ink-soft);" data-i18n="optNoteDiscount">(facoltativo, per lo sconto di lancio)</span></label>
-            <input type="text" id="contatto" placeholder="nome@email.it oppure 333 1234567" data-i18n-placeholder="contattoPlaceholder" autocomplete="off">
-            <div class="consent">
-              <input type="checkbox" id="consent">
-              <label for="consent" data-i18n="consentLabel">Userò il tuo contatto solo per avvisarti del lancio di Vicus &amp; Fabula.</label>
-            </div>
-
-            <button type="submit" class="submit-btn" id="submit-btn" data-i18n="submitBtn">Iscrivimi e sblocca lo sconto di lancio</button>
+            <button type="submit" class="submit-btn" id="submit-btn" data-i18n="submitBtn">Rispondi e sblocca lo sconto di lancio</button>
             <div class="form-msg" id="form-msg"></div>
           </form>
         </div>
 
         <div class="success-card" id="success-card">
           <div class="stamp">🏺</div>
-          <h3 id="success-title">Grazie!</h3>
-          <p id="success-text">Sei ufficialmente tra i primi a scoprire Vicus &amp; Fabula.</p>
+          <h3 data-i18n="successTitle">Grazie!</h3>
+          <p data-i18n="successText">Sei ufficialmente tra i primi a scoprire Vicus &amp; Fabula.</p>
+          <div class="discount-box">
+            <div class="discount-label" data-i18n="discountLabel">Il tuo codice sconto di lancio</div>
+            <div class="discount-code" id="discount-code">VICUS10</div>
+            <button type="button" class="copy-btn" id="copy-code-btn" data-i18n="copyBtn">Copia codice</button>
+            <div class="discount-hint" data-i18n="discountHint">Usalo al lancio di Vicus &amp; Fabula per il tuo sconto dedicato.</div>
+          </div>
         </div>
 
       </div>
@@ -551,8 +556,6 @@
         <h3>Canale (source)</h3>
         <div id="bd-source"></div>
       </div>
-      <p style="font-size:.85rem;"><strong id="stat-contatti">0</strong> persone hanno lasciato un contatto per la waitlist.</p>
-
       <button class="admin-btn" id="refresh-btn">Aggiorna</button>
       <button class="admin-btn" id="logout-btn" style="background:transparent;color:var(--terracotta-dark);box-shadow:none;">Esci</button>
     </div>
@@ -592,6 +595,9 @@
     appId: "1:332519515887:web:3d50e34fe7134410885d1a"
   };
   var COLLECTION_NAME = "risposte";
+  // Codice sconto mostrato a tutti dopo l'invio del form (nessun contatto
+  // personale viene più raccolto, quindi non è un codice individuale).
+  var DISCOUNT_CODE = "VICUS10";
   // --------------------------------------------------------------------------
 
   var app = initializeApp(firebaseConfig);
@@ -620,7 +626,7 @@
       metaDescription: "Vicus & Fabula: una caccia al tesoro in realtà aumentata nel centro storico di Caltagirone. Iscriviti alla lista d'attesa e sblocca lo sconto di lancio.",
       eyebrow: "Caltagirone · Centro Storico",
       tagline: "Una caccia al tesoro in realtà aumentata tra le maioliche e i vicoli di Caltagirone. Si gioca dal browser, in pochi minuti.",
-      heroCaption: "Scala di Santa Maria del Monte",
+      heroCaption: "La mappa degli enigmi",
       ctaBtn: "Prenota il tuo posto →",
       aboutTitle: "Di cosa si tratta",
       aboutP1: "<strong>Vicus &amp; Fabula</strong> è un gioco a caccia al tesoro in realtà aumentata (WebAR): si gioca direttamente dal browser dello smartphone, senza scaricare nessuna app.",
@@ -647,17 +653,15 @@
       optPullman: "Pullman / tour organizzato",
       optMezziPubblici: "Mezzi pubblici",
       optAltroMezzo: "Altro",
-      labelContatto: "Email o numero di telefono",
-      optNoteDiscount: "(facoltativo, per lo sconto di lancio)",
-      contattoPlaceholder: "nome@email.it oppure 333 1234567",
-      consentLabel: "Userò il tuo contatto solo per avvisarti del lancio di Vicus & Fabula.",
-      submitBtn: "Iscrivimi e sblocca lo sconto di lancio",
+      submitBtn: "Rispondi e sblocca lo sconto di lancio",
       submitting: "Invio in corso…",
       formErrRequired: "Seleziona provenienza e mezzo di trasporto per continuare.",
-      successTitleContact: "Grazie! Sei in lista 🏺",
-      successTitleNoContact: "Grazie per il tuo contributo!",
-      successTextContact: "Ti avviseremo al lancio di Vicus & Fabula con il tuo sconto dedicato.",
-      successTextNoContact: "Ogni risposta ci aiuta a costruire l'esperienza giusta per chi visita Caltagirone.",
+      successTitle: "Grazie! 🏺",
+      successText: "Ogni risposta ci aiuta a costruire l'esperienza giusta per chi visita Caltagirone.",
+      discountLabel: "Il tuo codice sconto di lancio",
+      copyBtn: "Copia codice",
+      copiedMsg: "Copiato ✓",
+      discountHint: "Usalo al lancio di Vicus & Fabula per il tuo sconto dedicato.",
       footerLine: "Caltagirone, Sicilia — in arrivo"
     },
     en: {
@@ -665,7 +669,7 @@
       metaDescription: "Vicus & Fabula: an augmented-reality treasure hunt in the historic centre of Caltagirone. Join the waitlist and unlock the launch discount.",
       eyebrow: "Caltagirone · Historic Centre",
       tagline: "An augmented-reality treasure hunt among the majolica tiles and alleyways of Caltagirone. Play straight from your browser, in just a few minutes.",
-      heroCaption: "Staircase of Santa Maria del Monte",
+      heroCaption: "The riddle map",
       ctaBtn: "Reserve your spot →",
       aboutTitle: "What it's about",
       aboutP1: "<strong>Vicus &amp; Fabula</strong> is an augmented-reality (WebAR) treasure hunt game: you play straight from your smartphone's browser, no app to download.",
@@ -692,17 +696,15 @@
       optPullman: "Coach / organised tour",
       optMezziPubblici: "Public transport",
       optAltroMezzo: "Other",
-      labelContatto: "Email or phone number",
-      optNoteDiscount: "(optional, for the launch discount)",
-      contattoPlaceholder: "name@email.com or +1 555 123 4567",
-      consentLabel: "We'll only use your contact to notify you about the launch of Vicus & Fabula.",
-      submitBtn: "Sign me up and unlock the launch discount",
+      submitBtn: "Answer and unlock the launch discount",
       submitting: "Sending…",
       formErrRequired: "Select where you're from and how you arrived to continue.",
-      successTitleContact: "Thank you! You're on the list 🏺",
-      successTitleNoContact: "Thanks for your contribution!",
-      successTextContact: "We'll notify you at the launch of Vicus & Fabula with your dedicated discount.",
-      successTextNoContact: "Every answer helps us build the right experience for people visiting Caltagirone.",
+      successTitle: "Thank you! 🏺",
+      successText: "Every answer helps us build the right experience for people visiting Caltagirone.",
+      discountLabel: "Your launch discount code",
+      copyBtn: "Copy code",
+      copiedMsg: "Copied ✓",
+      discountHint: "Use it at the launch of Vicus & Fabula for your dedicated discount.",
       footerLine: "Caltagirone, Sicily — coming soon"
     },
     es: {
@@ -710,7 +712,7 @@
       metaDescription: "Vicus & Fabula: una búsqueda del tesoro en realidad aumentada en el centro histórico de Caltagirone. Únete a la lista de espera y desbloquea el descuento de lanzamiento.",
       eyebrow: "Caltagirone · Centro Histórico",
       tagline: "Una búsqueda del tesoro en realidad aumentada entre las mayólicas y las callejuelas de Caltagirone. Se juega desde el navegador, en pocos minutos.",
-      heroCaption: "Escalinata de Santa Maria del Monte",
+      heroCaption: "El mapa de los enigmas",
       ctaBtn: "Reserva tu lugar →",
       aboutTitle: "De qué se trata",
       aboutP1: "<strong>Vicus &amp; Fabula</strong> es un juego de búsqueda del tesoro en realidad aumentada (WebAR): se juega directamente desde el navegador del smartphone, sin descargar ninguna app.",
@@ -737,17 +739,15 @@
       optPullman: "Autobús / tour organizado",
       optMezziPubblici: "Transporte público",
       optAltroMezzo: "Otro",
-      labelContatto: "Correo electrónico o número de teléfono",
-      optNoteDiscount: "(opcional, para el descuento de lanzamiento)",
-      contattoPlaceholder: "nombre@email.com o 612 345 678",
-      consentLabel: "Usaremos tu contacto solo para avisarte del lanzamiento de Vicus & Fabula.",
-      submitBtn: "Inscríbeme y desbloquea el descuento de lanzamiento",
+      submitBtn: "Responde y desbloquea el descuento de lanzamiento",
       submitting: "Enviando…",
       formErrRequired: "Selecciona tu procedencia y medio de transporte para continuar.",
-      successTitleContact: "¡Gracias! Ya estás en la lista 🏺",
-      successTitleNoContact: "¡Gracias por tu aportación!",
-      successTextContact: "Te avisaremos en el lanzamiento de Vicus & Fabula con tu descuento exclusivo.",
-      successTextNoContact: "Cada respuesta nos ayuda a construir la experiencia adecuada para quienes visitan Caltagirone.",
+      successTitle: "¡Gracias! 🏺",
+      successText: "Cada respuesta nos ayuda a construir la experiencia adecuada para quienes visitan Caltagirone.",
+      discountLabel: "Tu código de descuento de lanzamiento",
+      copyBtn: "Copiar código",
+      copiedMsg: "Copiado ✓",
+      discountHint: "Úsalo en el lanzamiento de Vicus & Fabula para tu descuento exclusivo.",
       footerLine: "Caltagirone, Sicilia — próximamente"
     },
     fr: {
@@ -755,7 +755,7 @@
       metaDescription: "Vicus & Fabula : une chasse au trésor en réalité augmentée dans le centre historique de Caltagirone. Inscrivez-vous sur la liste d'attente et débloquez la remise de lancement.",
       eyebrow: "Caltagirone · Centre historique",
       tagline: "Une chasse au trésor en réalité augmentée parmi les majoliques et les ruelles de Caltagirone. Ça se joue depuis le navigateur, en quelques minutes.",
-      heroCaption: "Escalier de Santa Maria del Monte",
+      heroCaption: "La carte des énigmes",
       ctaBtn: "Réservez votre place →",
       aboutTitle: "De quoi s'agit-il",
       aboutP1: "<strong>Vicus &amp; Fabula</strong> est un jeu de chasse au trésor en réalité augmentée (WebAR) : on y joue directement depuis le navigateur du smartphone, sans télécharger aucune application.",
@@ -782,17 +782,15 @@
       optPullman: "Car / voyage organisé",
       optMezziPubblici: "Transports en commun",
       optAltroMezzo: "Autre",
-      labelContatto: "E-mail ou numéro de téléphone",
-      optNoteDiscount: "(facultatif, pour la remise de lancement)",
-      contattoPlaceholder: "nom@email.fr ou 06 12 34 56 78",
-      consentLabel: "Nous n'utiliserons votre contact que pour vous informer du lancement de Vicus & Fabula.",
-      submitBtn: "Inscrivez-moi et débloquez la remise de lancement",
+      submitBtn: "Répondez et débloquez la remise de lancement",
       submitting: "Envoi en cours…",
       formErrRequired: "Sélectionnez votre provenance et votre moyen de transport pour continuer.",
-      successTitleContact: "Merci ! Vous êtes sur la liste 🏺",
-      successTitleNoContact: "Merci pour votre contribution !",
-      successTextContact: "Nous vous informerons du lancement de Vicus & Fabula avec votre remise dédiée.",
-      successTextNoContact: "Chaque réponse nous aide à construire la bonne expérience pour les visiteurs de Caltagirone.",
+      successTitle: "Merci ! 🏺",
+      successText: "Chaque réponse nous aide à construire la bonne expérience pour les visiteurs de Caltagirone.",
+      discountLabel: "Votre code de remise de lancement",
+      copyBtn: "Copier le code",
+      copiedMsg: "Copié ✓",
+      discountHint: "Utilisez-le au lancement de Vicus & Fabula pour votre remise dédiée.",
       footerLine: "Caltagirone, Sicile — bientôt disponible"
     },
     zh: {
@@ -800,7 +798,7 @@
       metaDescription: "Vicus & Fabula:一场发生在卡尔塔吉罗内历史中心的增强现实寻宝游戏。加入等候名单,解锁上线优惠。",
       eyebrow: "卡尔塔吉罗内 · 历史中心",
       tagline: "一场增强现实寻宝游戏,带你穿梭于卡尔塔吉罗内的马约里卡陶瓷与小巷之间。直接在浏览器中畅玩,只需几分钟。",
-      heroCaption: "圣马利亚山阶梯",
+      heroCaption: "谜题地图",
       ctaBtn: "预留名额 →",
       aboutTitle: "关于游戏",
       aboutP1: "<strong>Vicus &amp; Fabula</strong> 是一款增强现实(WebAR)寻宝游戏:直接在智能手机浏览器中畅玩,无需下载任何应用。",
@@ -827,17 +825,15 @@
       optPullman: "大巴/跟团游",
       optMezziPubblici: "公共交通",
       optAltroMezzo: "其他",
-      labelContatto: "电子邮箱或电话号码",
-      optNoteDiscount: "(可选,用于获取上线优惠)",
-      contattoPlaceholder: "name@email.com 或 138 1234 5678",
-      consentLabel: "我们仅会使用您的联系方式通知您 Vicus & Fabula 的上线消息。",
-      submitBtn: "报名并解锁上线优惠",
+      submitBtn: "回答并解锁上线优惠",
       submitting: "发送中…",
       formErrRequired: "请选择您的出发地和到达方式以继续。",
-      successTitleContact: "谢谢!您已加入名单 🏺",
-      successTitleNoContact: "感谢您的参与!",
-      successTextContact: "Vicus & Fabula 上线时,我们会通知您并提供专属优惠。",
-      successTextNoContact: "每一份回答都能帮助我们为到访卡尔塔吉罗内的游客打造更好的体验。",
+      successTitle: "谢谢!🏺",
+      successText: "每一份回答都能帮助我们为到访卡尔塔吉罗内的游客打造更好的体验。",
+      discountLabel: "您的上线优惠码",
+      copyBtn: "复制优惠码",
+      copiedMsg: "已复制 ✓",
+      discountHint: "Vicus & Fabula 上线时使用此优惠码即可获得专属折扣。",
       footerLine: "西西里卡尔塔吉罗内 — 即将上线"
     }
   };
@@ -891,15 +887,14 @@
     applyLang(detectLang());
     document.getElementById("lang-select").addEventListener("change", function(e){
       applyLang(e.target.value);
-      if (lastHasContact !== null) showSuccess(lastHasContact);
     });
+    document.getElementById("discount-code").textContent = DISCOUNT_CODE;
 
     var form = document.getElementById("vf-form");
     var fasciaGroup = document.getElementById("fascia-group");
     var fasciaValue = "";
     var msgEl = document.getElementById("form-msg");
     var btn = document.getElementById("submit-btn");
-    var lastHasContact = null;
 
     fasciaGroup.addEventListener("click", function(e){
       var pill = e.target.closest(".pill");
@@ -923,7 +918,6 @@
       e.preventDefault();
       var provenienza = document.getElementById("provenienza").value;
       var mezzo = document.getElementById("mezzo").value;
-      var contatto = document.getElementById("contatto").value.trim();
 
       if (!provenienza || !mezzo){
         showMsg(I18N[currentLang].formErrRequired, "error");
@@ -935,7 +929,6 @@
         dataOggi: new Date().toISOString().slice(0, 10),
         provenienza: provenienza,
         mezzoTrasporto: mezzo,
-        contatto: contatto || null,
         source: source,
         createdAt: serverTimestamp()
       };
@@ -950,22 +943,34 @@
         console.warn("Sincronizzazione posticipata:", err);
       });
 
-      lastHasContact = !!contatto;
-      showSuccess(lastHasContact);
+      showSuccess();
     });
 
-    function showSuccess(hasContact){
+    function showSuccess(){
       document.getElementById("form-intro").style.display = "none";
-      var card = document.getElementById("success-card");
-      card.classList.add("show");
-      var dict = I18N[currentLang];
-      document.getElementById("success-title").textContent = hasContact
-        ? dict.successTitleContact
-        : dict.successTitleNoContact;
-      document.getElementById("success-text").textContent = hasContact
-        ? dict.successTextContact
-        : dict.successTextNoContact;
+      document.getElementById("success-card").classList.add("show");
     }
+
+    var copyBtn = document.getElementById("copy-code-btn");
+    copyBtn.addEventListener("click", function(){
+      var reset = function(){ copyBtn.textContent = I18N[currentLang].copyBtn; };
+      var showCopied = function(){
+        copyBtn.textContent = I18N[currentLang].copiedMsg;
+        setTimeout(reset, 1800);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(DISCOUNT_CODE).then(showCopied).catch(reset);
+      } else {
+        var tmp = document.createElement("textarea");
+        tmp.value = DISCOUNT_CODE;
+        tmp.style.position = "fixed";
+        tmp.style.opacity = "0";
+        document.body.appendChild(tmp);
+        tmp.select();
+        try { document.execCommand("copy"); showCopied(); } catch(e){ reset(); }
+        document.body.removeChild(tmp);
+      }
+    });
   }
 
   function bar(container, dataObj, total){
@@ -1009,7 +1014,7 @@
 
       getDocs(collection(db, COLLECTION_NAME))
         .then(function(snapshot){
-          var stats = { totale: 0, fasciaOraria: {}, provenienza: {}, mezzoTrasporto: {}, source: {}, conContatto: 0 };
+          var stats = { totale: 0, fasciaOraria: {}, provenienza: {}, mezzoTrasporto: {}, source: {} };
           snapshot.forEach(function(doc){
             var d = doc.data();
             stats.totale++;
@@ -1017,13 +1022,11 @@
             incr(stats.provenienza, d.provenienza);
             incr(stats.mezzoTrasporto, d.mezzoTrasporto);
             incr(stats.source, d.source);
-            if (d.contatto) stats.conContatto++;
           });
 
           loadingEl.style.display = "none";
           contentEl.style.display = "block";
           document.getElementById("stat-total").textContent = stats.totale;
-          document.getElementById("stat-contatti").textContent = stats.conContatto;
           bar(document.getElementById("bd-fascia"), stats.fasciaOraria, stats.totale);
           bar(document.getElementById("bd-provenienza"), stats.provenienza, stats.totale);
           bar(document.getElementById("bd-mezzo"), stats.mezzoTrasporto, stats.totale);
