@@ -7,7 +7,7 @@
 <meta name="description" content="Vicus & Fabula: una caccia al tesoro in realtà aumentata nel centro storico di Caltagirone. Iscriviti alla lista d'attesa e sblocca lo sconto di lancio.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Mulish:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Mulish:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
     --terracotta: #C1440E;
@@ -33,10 +33,10 @@
     -webkit-font-smoothing:antialiased;
   }
   h1,h2,h3{
-    font-family:'Cormorant Garamond', Georgia, serif;
+    font-family:'Baloo 2', 'Mulish', sans-serif;
     font-weight:700;
     margin:0 0 .4em;
-    color:var(--terracotta-dark);
+    color:var(--maiolica-dark);
   }
   .wrap{max-width:480px;margin:0 auto;padding:0 20px;}
   a{color:inherit;}
@@ -54,9 +54,10 @@
 
   /* Hero */
   .hero{
-    background:linear-gradient(160deg, var(--terracotta) 0%, var(--terracotta-dark) 45%, var(--maiolica-dark) 100%);
-    color:#fff;
-    padding:36px 0 30px;
+    background:var(--cream);
+    background-image:radial-gradient(circle at 15% 12%, rgba(30,95,124,.06), transparent 40%);
+    color:var(--maiolica-dark);
+    padding:20px 0 30px;
     text-align:center;
     position:relative;
     overflow:hidden;
@@ -69,9 +70,9 @@
     z-index:3;
   }
   .lang-switch select{
-    background:rgba(255,255,255,.16);
-    border:1px solid rgba(255,255,255,.4);
-    color:#fff;
+    background:#fff;
+    border:1.5px solid var(--maiolica-dark);
+    color:var(--maiolica-dark);
     font-family:inherit;
     font-weight:700;
     font-size:.76rem;
@@ -80,46 +81,86 @@
     appearance:none;
     -webkit-appearance:none;
     cursor:pointer;
-    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='white' d='M5.5 7.5l4.5 4.5 4.5-4.5z'/></svg>");
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='%23123B4F' d='M5.5 7.5l4.5 4.5 4.5-4.5z'/></svg>");
     background-repeat:no-repeat;
     background-position:right 8px center;
   }
-  .lang-switch select:focus{outline:1px solid #fff;}
-  .lang-switch select option{color:var(--ink);}
+  .lang-switch select:focus{outline:1px solid var(--maiolica-dark);}
+  .hero-topline{
+    position:relative;
+    padding-top:6px;
+  }
+  .hero-pin{
+    position:absolute;
+    top:46px;
+    right:-4px;
+    width:50px;
+    height:50px;
+  }
   .eyebrow{
     display:inline-block;
-    font-size:.72rem;
-    letter-spacing:.14em;
+    font-family:'Baloo 2', sans-serif;
+    font-size:.78rem;
+    font-weight:700;
+    letter-spacing:.1em;
     text-transform:uppercase;
-    background:rgba(255,255,255,.16);
-    border:1px solid rgba(255,255,255,.35);
-    padding:5px 12px;
+    background:#fff;
+    border:1.5px solid var(--maiolica-dark);
+    color:var(--maiolica-dark);
+    padding:6px 14px;
     border-radius:999px;
-    margin-bottom:16px;
+    margin-bottom:14px;
   }
   .hero h1{
-    color:#fff;
-    font-size:2.6rem;
-    line-height:1.05;
-    margin-bottom:10px;
-    text-shadow:0 2px 12px rgba(0,0,0,.25);
+    color:var(--maiolica-dark);
+    font-size:3rem;
+    font-weight:800;
+    line-height:.95;
+    letter-spacing:.01em;
+    text-transform:uppercase;
+    margin-bottom:8px;
   }
-  .hero h1 span{color:var(--ocra-light);}
+  .hero h1 span{color:var(--ocra);}
+  .hero-sub{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:.92rem;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--maiolica-dark);
+    opacity:.8;
+    margin:0 0 16px;
+  }
+  .gold-banner{
+    display:inline-block;
+    background:var(--ocra);
+    color:var(--maiolica-dark);
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:.82rem;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    padding:8px 18px;
+    border-radius:6px;
+    transform:rotate(-1.5deg);
+    box-shadow:0 6px 14px rgba(138,46,10,.18);
+    margin-bottom:18px;
+  }
   .tagline{
-    font-size:1.05rem;
+    font-size:1.02rem;
     max-width:340px;
     margin:0 auto 22px;
-    color:#F9E9CE;
+    color:var(--ink-soft);
   }
   .hero-art{
-    margin:18px auto 24px;
+    margin:6px auto 24px;
     width:100%;
     max-width:320px;
     aspect-ratio:4/3;
     border-radius:var(--radius);
     background:var(--maiolica-dark);
     position:relative;
-    box-shadow:0 14px 30px rgba(0,0,0,.35), inset 0 0 0 3px rgba(255,255,255,.25);
+    box-shadow:0 14px 30px rgba(18,59,79,.28), inset 0 0 0 3px rgba(255,255,255,.2);
     overflow:hidden;
   }
   .hero-art svg{position:absolute;inset:0;width:100%;height:100%;display:block;}
@@ -144,14 +185,14 @@
   }
   .cta-btn{
     display:inline-block;
-    background:var(--ocra);
-    color:var(--terracotta-dark);
+    background:var(--maiolica-dark);
+    color:var(--ocra-light);
     font-weight:800;
     font-size:1.02rem;
     padding:15px 28px;
     border-radius:999px;
     text-decoration:none;
-    box-shadow:0 10px 22px rgba(0,0,0,.28);
+    box-shadow:0 10px 22px rgba(18,59,79,.3);
     border:none;
     cursor:pointer;
     transition:transform .15s ease;
@@ -161,19 +202,34 @@
   /* About */
   .about{padding:34px 0 8px;}
   .about p{color:var(--ink-soft);margin:0 0 14px;}
-  .feature-list{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:10px;}
+  .feature-list{list-style:none;margin:22px 0 0;padding:0;}
   .feature-list li{
-    background:var(--card);
-    border:1px solid #EEDFC4;
-    border-left:5px solid var(--maiolica);
-    border-radius:12px;
-    padding:12px 14px;
     display:flex;
-    gap:10px;
+    gap:14px;
     align-items:flex-start;
-    font-size:.95rem;
+    padding:15px 0;
+    border-bottom:1px solid #EEDFC4;
   }
-  .feature-list .ic{font-size:1.25rem;line-height:1;}
+  .feature-list li:last-child{border-bottom:none;}
+  .feature-badge{
+    flex:0 0 auto;
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    background:var(--ocra-light);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .feature-badge svg{width:22px;height:22px;stroke:var(--maiolica-dark);}
+  .feature-body strong{
+    display:block;
+    font-family:'Baloo 2', sans-serif;
+    font-size:.98rem;
+    color:var(--maiolica-dark);
+    margin-bottom:2px;
+  }
+  .feature-body span{font-size:.88rem;color:var(--ink-soft);}
 
   /* Form */
   .form-section{padding:36px 0 10px;}
@@ -283,10 +339,10 @@
     color:var(--terracotta-dark);
   }
   .discount-code{
-    font-family:'Cormorant Garamond', Georgia, serif;
-    font-weight:700;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
     font-size:2rem;
-    letter-spacing:.1em;
+    letter-spacing:.06em;
     color:var(--terracotta-dark);
     margin:6px 0 12px;
   }
@@ -312,7 +368,43 @@
     color:var(--ink-soft);
     font-size:.78rem;
   }
-  footer .fw{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1rem;color:var(--terracotta-dark);}
+  footer .fw{font-family:'Baloo 2', sans-serif;font-weight:700;font-size:1.1rem;color:var(--maiolica-dark);}
+
+  .earlybird{
+    background:var(--maiolica-dark);
+    padding:28px 0;
+    color:#fff;
+  }
+  .earlybird .wrap{display:flex;gap:14px;align-items:flex-start;}
+  .earlybird svg{flex:0 0 auto;width:34px;height:34px;margin-top:2px;stroke:var(--ocra);}
+  .earlybird h2{
+    color:var(--ocra);
+    font-size:1.15rem;
+    margin-bottom:4px;
+  }
+  .earlybird p{
+    color:#E7EEF2;
+    font-size:.88rem;
+    margin:0;
+  }
+
+  .skyline-band{
+    background:var(--maiolica-dark);
+    padding:26px 0 18px;
+    text-align:center;
+    overflow:hidden;
+  }
+  .skyline-band svg{display:block;width:100%;height:auto;max-height:46px;margin-bottom:14px;}
+  .skyline-band p{
+    font-family:'Baloo 2', sans-serif;
+    font-style:italic;
+    font-weight:600;
+    color:var(--ocra-light);
+    font-size:.88rem;
+    line-height:1.6;
+    margin:0;
+    padding:0 20px;
+  }
 
   /* Admin */
   #admin-view{display:none;}
@@ -328,10 +420,10 @@
     text-align:center;
     margin:18px 0;
   }
-  .stat-big .num{font-size:2.6rem;font-weight:800;font-family:'Cormorant Garamond',serif;}
+  .stat-big .num{font-size:2.6rem;font-weight:800;font-family:'Baloo 2', sans-serif;}
   .stat-big .lab{font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;opacity:.85;}
   .breakdown{margin:22px 0;}
-  .breakdown h3{font-size:1rem;color:var(--terracotta-dark);margin-bottom:10px;}
+  .breakdown h3{font-size:1rem;color:var(--maiolica-dark);margin-bottom:10px;}
   .bar-row{margin-bottom:8px;font-size:.85rem;}
   .bar-row .bar-label{display:flex;justify-content:space-between;margin-bottom:3px;}
   .bar-track{background:#EFE1C8;border-radius:6px;height:9px;overflow:hidden;}
@@ -360,8 +452,17 @@
       </select>
     </div>
     <div class="wrap">
-      <span class="eyebrow" data-i18n="eyebrow">Caltagirone · Centro Storico</span>
-      <h1>Vicus <span>&amp;</span> Fabula</h1>
+      <div class="hero-topline">
+        <svg class="hero-pin" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <path d="M32 4c8 0 14 6 14 14 0 10-14 26-14 26S18 28 18 18C18 10 24 4 32 4Z" fill="#E3A857"/>
+          <circle cx="32" cy="18" r="5" fill="#FBF2E3"/>
+          <path d="M32 44 C40 48 24 52 30 58" stroke="#123B4F" stroke-width="2" stroke-linecap="round" stroke-dasharray="0.5 6" fill="none"/>
+        </svg>
+        <span class="eyebrow" data-i18n="eyebrow">Caltagirone · Centro Storico</span>
+        <h1>Vicus <span>&amp;</span> Fabula</h1>
+        <p class="hero-sub" data-i18n="heroSub">Caccia al tesoro in realtà aumentata</p>
+        <div class="gold-banner" data-i18n="goldBanner">Esplora. Risolvi. Arriva primo.</div>
+      </div>
       <p class="tagline" data-i18n="tagline">Una caccia al tesoro in realtà aumentata tra le maioliche e i vicoli di Caltagirone. Si gioca dal browser, in pochi minuti.</p>
 
       <div class="hero-art" aria-hidden="true">
@@ -448,11 +549,37 @@
       <p data-i18n-html="aboutP3">Pensato per chi visita Caltagirone in giornata: un'esperienza di <strong>1-2 ore</strong>, da vivere da soli, in coppia, in famiglia o in gruppo.</p>
 
       <ul class="feature-list">
-        <li><span class="ic">🧩</span><span data-i18n="feature1">Enigmi ambientati nei luoghi reali della città</span></li>
-        <li><span class="ic">📜</span><span data-i18n="feature2">Narrazione storico-culturale tra arte, storia e ceramica</span></li>
-        <li><span class="ic">👥</span><span data-i18n="feature3">Esperienza multiplayer, perfetta per gruppi e famiglie</span></li>
-        <li><span class="ic">📱</span><span data-i18n="feature4">Nessuna app da installare: si gioca dal browser</span></li>
+        <li>
+          <span class="feature-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><circle cx="12" cy="10" r="4"/><line x1="8" y1="10" x2="16" y2="10"/><path d="M12 6c-2 2-2 6 0 8"/></svg></span>
+          <span class="feature-body"><strong data-i18n="feat1Title">Gioca dal browser</strong><span data-i18n="feat1Text">Nessuna app da installare: apri il link e inizia subito, ovunque tu sia.</span></span>
+        </li>
+        <li>
+          <span class="feature-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="6"/><line x1="14.5" y1="14.5" x2="20" y2="20"/></svg></span>
+          <span class="feature-body"><strong data-i18n="feat2Title">Esplora Caltagirone</strong><span data-i18n="feat2Text">Segui gli indizi tra storia, arte e la tradizione ceramica della città.</span></span>
+        </li>
+        <li>
+          <span class="feature-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10v4a5 5 0 0 1-10 0V3Z"/><path d="M7 4H4v2a3 3 0 0 0 3 3"/><path d="M17 4h3v2a3 3 0 0 1-3 3"/><line x1="12" y1="12" x2="12" y2="17"/><path d="M9 17h6l1 4H8l1-4Z"/></svg></span>
+          <span class="feature-body"><strong data-i18n="feat3Title">Una sfida contro il tempo</strong><span data-i18n="feat3Text">Risolvi gli enigmi più in fretta che puoi: i migliori giocatori vincono buoni sconto da spendere in città.</span></span>
+        </li>
+        <li>
+          <span class="feature-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="16.5" cy="9" r="2.6"/><path d="M4 20c0-3 2.5-5 5-5s5 2 5 5"/><path d="M14.5 20c0-2.2 1.6-4 4-4.4"/></svg></span>
+          <span class="feature-body"><strong data-i18n="feat4Title">Per tutti, in ogni modo</strong><span data-i18n="feat4Text">Un'esperienza di 1-2 ore, da vivere da soli, in coppia, in famiglia o in gruppo.</span></span>
+        </li>
       </ul>
+    </div>
+  </section>
+
+  <section class="earlybird">
+    <div class="wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 9v6a1 1 0 0 0 1 1h2.5l7 4.5V3.5l-7 4.5H4a1 1 0 0 0-1 1Z"/>
+        <path d="M14 9a3 3 0 0 1 0 6"/>
+        <path d="M17 6a7 7 0 0 1 0 12"/>
+      </svg>
+      <div>
+        <h2 data-i18n="earlybirdTitle">Early bird: la tua opinione conta!</h2>
+        <p data-i18n="earlybirdText">Rispondi ora e diventa tra i primi a scoprire novità, anteprime e vantaggi esclusivi.</p>
+      </div>
     </div>
   </section>
 
@@ -509,6 +636,13 @@
       </div>
     </div>
   </section>
+
+  <div class="skyline-band" aria-hidden="true">
+    <svg viewBox="0 0 400 46" preserveAspectRatio="none">
+      <path d="M0,46 L0,30 L20,30 L20,22 L34,22 L34,10 Q38,2 42,10 L42,22 L60,22 L60,30 L90,30 L90,14 L100,14 L100,4 Q104,-2 108,4 L108,14 L118,14 L118,30 L160,30 L160,20 L172,20 L172,8 Q176,0 180,8 L180,20 L192,20 L192,30 L230,30 L230,16 L242,16 L242,6 Q246,-1 250,6 L250,16 L260,16 L260,30 L300,30 L300,22 L312,22 L312,12 Q316,4 320,12 L320,22 L332,22 L332,30 L400,30 L400,46 Z" fill="#E3A857"/>
+    </svg>
+    <p data-i18n="skylineTagline">La città è il tuo campo di gioco. La storia è la tua strada.</p>
+  </div>
 
   <footer>
     <div class="fw">Vicus &amp; Fabula</div>
@@ -627,15 +761,23 @@
       eyebrow: "Caltagirone · Centro Storico",
       tagline: "Una caccia al tesoro in realtà aumentata tra le maioliche e i vicoli di Caltagirone. Si gioca dal browser, in pochi minuti.",
       heroCaption: "La mappa degli enigmi",
+      heroSub: "Caccia al tesoro in realtà aumentata",
+      goldBanner: "Esplora. Risolvi. Arriva primo.",
       ctaBtn: "Prenota il tuo posto →",
       aboutTitle: "Di cosa si tratta",
       aboutP1: "<strong>Vicus &amp; Fabula</strong> è un gioco a caccia al tesoro in realtà aumentata (WebAR): si gioca direttamente dal browser dello smartphone, senza scaricare nessuna app.",
       aboutP2: "Seguendo enigmi e indizi legati alla storia, all'arte e alla tradizione ceramica della città, esplorerai luoghi come la <strong>Scala di Santa Maria del Monte</strong>, il centro storico barocco e le botteghe artigiane.",
       aboutP3: "Pensato per chi visita Caltagirone in giornata: un'esperienza di <strong>1-2 ore</strong>, da vivere da soli, in coppia, in famiglia o in gruppo.",
-      feature1: "Enigmi ambientati nei luoghi reali della città",
-      feature2: "Narrazione storico-culturale tra arte, storia e ceramica",
-      feature3: "Esperienza multiplayer, perfetta per gruppi e famiglie",
-      feature4: "Nessuna app da installare: si gioca dal browser",
+      feat1Title: "Gioca dal browser",
+      feat1Text: "Nessuna app da installare: apri il link e inizia subito, ovunque tu sia.",
+      feat2Title: "Esplora Caltagirone",
+      feat2Text: "Segui gli indizi tra storia, arte e la tradizione ceramica della città.",
+      feat3Title: "Una sfida contro il tempo",
+      feat3Text: "Risolvi gli enigmi più in fretta che puoi: i migliori giocatori vincono buoni sconto da spendere in città.",
+      feat4Title: "Per tutti, in ogni modo",
+      feat4Text: "Un'esperienza di 1-2 ore, da vivere da soli, in coppia, in famiglia o in gruppo.",
+      earlybirdTitle: "Early bird: la tua opinione conta!",
+      earlybirdText: "Rispondi ora e diventa tra i primi a scoprire novità, anteprime e vantaggi esclusivi.",
       formTitle: "Sei tra i primi a scoprirlo",
       formSub: "Rispondi in 20 secondi: ci aiuti a capire chi visita Caltagirone e sblocchi lo sconto di lancio.",
       labelFascia: "Quando hai visitato Caltagirone oggi?",
@@ -662,6 +804,7 @@
       copyBtn: "Copia codice",
       copiedMsg: "Copiato ✓",
       discountHint: "Usalo al lancio di Vicus & Fabula per il tuo sconto dedicato.",
+      skylineTagline: "La città è il tuo campo di gioco. La storia è la tua strada.",
       footerLine: "Caltagirone, Sicilia — in arrivo"
     },
     en: {
@@ -670,15 +813,23 @@
       eyebrow: "Caltagirone · Historic Centre",
       tagline: "An augmented-reality treasure hunt among the majolica tiles and alleyways of Caltagirone. Play straight from your browser, in just a few minutes.",
       heroCaption: "The riddle map",
+      heroSub: "Augmented-reality treasure hunt",
+      goldBanner: "Explore. Solve. Get there first.",
       ctaBtn: "Reserve your spot →",
       aboutTitle: "What it's about",
       aboutP1: "<strong>Vicus &amp; Fabula</strong> is an augmented-reality (WebAR) treasure hunt game: you play straight from your smartphone's browser, no app to download.",
       aboutP2: "Following riddles and clues tied to the city's history, art and ceramic tradition, you'll explore places like the <strong>Staircase of Santa Maria del Monte</strong>, the baroque historic centre and the artisan workshops.",
       aboutP3: "Designed for day-trippers visiting Caltagirone: a <strong>1-2 hour</strong> experience, to enjoy solo, as a couple, with family or in a group.",
-      feature1: "Riddles set in the city's real locations",
-      feature2: "Historical and cultural storytelling through art, history and ceramics",
-      feature3: "Multiplayer experience, perfect for groups and families",
-      feature4: "No app to install: play straight from your browser",
+      feat1Title: "Play from your browser",
+      feat1Text: "No app to install: open the link and start right away, wherever you are.",
+      feat2Title: "Explore Caltagirone",
+      feat2Text: "Follow the clues through the city's history, art and ceramic tradition.",
+      feat3Title: "A race against time",
+      feat3Text: "Solve the riddles as fast as you can: the top players win discount vouchers to spend in town.",
+      feat4Title: "For everyone, any way",
+      feat4Text: "A 1-2 hour experience, to enjoy solo, as a couple, with family or in a group.",
+      earlybirdTitle: "Early bird: your opinion matters!",
+      earlybirdText: "Answer now and be among the first to discover news, previews and exclusive perks.",
       formTitle: "You're among the first to discover it",
       formSub: "Answer in 20 seconds: help us understand who visits Caltagirone and unlock your launch discount.",
       labelFascia: "When did you visit Caltagirone today?",
@@ -705,6 +856,7 @@
       copyBtn: "Copy code",
       copiedMsg: "Copied ✓",
       discountHint: "Use it at the launch of Vicus & Fabula for your dedicated discount.",
+      skylineTagline: "The city is your playing field. History is your path.",
       footerLine: "Caltagirone, Sicily — coming soon"
     },
     es: {
@@ -713,15 +865,23 @@
       eyebrow: "Caltagirone · Centro Histórico",
       tagline: "Una búsqueda del tesoro en realidad aumentada entre las mayólicas y las callejuelas de Caltagirone. Se juega desde el navegador, en pocos minutos.",
       heroCaption: "El mapa de los enigmas",
+      heroSub: "Búsqueda del tesoro en realidad aumentada",
+      goldBanner: "Explora. Resuelve. Llega el primero.",
       ctaBtn: "Reserva tu lugar →",
       aboutTitle: "De qué se trata",
       aboutP1: "<strong>Vicus &amp; Fabula</strong> es un juego de búsqueda del tesoro en realidad aumentada (WebAR): se juega directamente desde el navegador del smartphone, sin descargar ninguna app.",
       aboutP2: "Siguiendo enigmas y pistas relacionados con la historia, el arte y la tradición cerámica de la ciudad, explorarás lugares como la <strong>Escalinata de Santa Maria del Monte</strong>, el centro histórico barroco y los talleres artesanales.",
       aboutP3: "Pensado para quienes visitan Caltagirone en el día: una experiencia de <strong>1-2 horas</strong>, para vivir solo, en pareja, en familia o en grupo.",
-      feature1: "Enigmas ambientados en los lugares reales de la ciudad",
-      feature2: "Narración histórico-cultural entre arte, historia y cerámica",
-      feature3: "Experiencia multijugador, perfecta para grupos y familias",
-      feature4: "Sin ninguna app que instalar: se juega desde el navegador",
+      feat1Title: "Juega desde el navegador",
+      feat1Text: "Sin ninguna app que instalar: abre el enlace y empieza al instante, estés donde estés.",
+      feat2Title: "Explora Caltagirone",
+      feat2Text: "Sigue las pistas entre la historia, el arte y la tradición cerámica de la ciudad.",
+      feat3Title: "Una carrera contra el tiempo",
+      feat3Text: "Resuelve los enigmas lo más rápido posible: los mejores jugadores ganan bonos de descuento para gastar en la ciudad.",
+      feat4Title: "Para todos, de cualquier forma",
+      feat4Text: "Una experiencia de 1-2 horas, para vivir solo, en pareja, en familia o en grupo.",
+      earlybirdTitle: "Early bird: ¡tu opinión cuenta!",
+      earlybirdText: "Responde ahora y sé de los primeros en descubrir novedades, adelantos y ventajas exclusivas.",
       formTitle: "Eres de los primeros en descubrirlo",
       formSub: "Responde en 20 segundos: nos ayudas a entender quién visita Caltagirone y desbloqueas el descuento de lanzamiento.",
       labelFascia: "¿Cuándo visitaste Caltagirone hoy?",
@@ -748,6 +908,7 @@
       copyBtn: "Copiar código",
       copiedMsg: "Copiado ✓",
       discountHint: "Úsalo en el lanzamiento de Vicus & Fabula para tu descuento exclusivo.",
+      skylineTagline: "La ciudad es tu campo de juego. La historia es tu camino.",
       footerLine: "Caltagirone, Sicilia — próximamente"
     },
     fr: {
@@ -756,15 +917,23 @@
       eyebrow: "Caltagirone · Centre historique",
       tagline: "Une chasse au trésor en réalité augmentée parmi les majoliques et les ruelles de Caltagirone. Ça se joue depuis le navigateur, en quelques minutes.",
       heroCaption: "La carte des énigmes",
+      heroSub: "Chasse au trésor en réalité augmentée",
+      goldBanner: "Explorez. Résolvez. Arrivez premier.",
       ctaBtn: "Réservez votre place →",
       aboutTitle: "De quoi s'agit-il",
       aboutP1: "<strong>Vicus &amp; Fabula</strong> est un jeu de chasse au trésor en réalité augmentée (WebAR) : on y joue directement depuis le navigateur du smartphone, sans télécharger aucune application.",
       aboutP2: "En suivant des énigmes et des indices liés à l'histoire, à l'art et à la tradition céramique de la ville, vous explorerez des lieux comme l'<strong>Escalier de Santa Maria del Monte</strong>, le centre historique baroque et les ateliers artisanaux.",
       aboutP3: "Pensé pour ceux qui visitent Caltagirone à la journée : une expérience de <strong>1 à 2 heures</strong>, à vivre seul, en couple, en famille ou en groupe.",
-      feature1: "Des énigmes situées dans les vrais lieux de la ville",
-      feature2: "Un récit historico-culturel entre art, histoire et céramique",
-      feature3: "Une expérience multijoueur, parfaite pour les groupes et les familles",
-      feature4: "Aucune application à installer : ça se joue depuis le navigateur",
+      feat1Title: "Jouez depuis le navigateur",
+      feat1Text: "Aucune application à installer : ouvrez le lien et commencez tout de suite, où que vous soyez.",
+      feat2Title: "Explorez Caltagirone",
+      feat2Text: "Suivez les indices entre l'histoire, l'art et la tradition céramique de la ville.",
+      feat3Title: "Une course contre la montre",
+      feat3Text: "Résolvez les énigmes le plus vite possible : les meilleurs joueurs gagnent des bons de réduction à dépenser en ville.",
+      feat4Title: "Pour tous, de toutes les façons",
+      feat4Text: "Une expérience de 1 à 2 heures, à vivre seul, en couple, en famille ou en groupe.",
+      earlybirdTitle: "Early bird : votre avis compte !",
+      earlybirdText: "Répondez maintenant et soyez parmi les premiers à découvrir les nouveautés, avant-premières et avantages exclusifs.",
       formTitle: "Vous êtes parmi les premiers à le découvrir",
       formSub: "Répondez en 20 secondes : vous nous aidez à comprendre qui visite Caltagirone et vous débloquez la remise de lancement.",
       labelFascia: "Quand avez-vous visité Caltagirone aujourd'hui ?",
@@ -791,6 +960,7 @@
       copyBtn: "Copier le code",
       copiedMsg: "Copié ✓",
       discountHint: "Utilisez-le au lancement de Vicus & Fabula pour votre remise dédiée.",
+      skylineTagline: "La ville est votre terrain de jeu. L'histoire est votre chemin.",
       footerLine: "Caltagirone, Sicile — bientôt disponible"
     },
     zh: {
@@ -799,15 +969,23 @@
       eyebrow: "卡尔塔吉罗内 · 历史中心",
       tagline: "一场增强现实寻宝游戏,带你穿梭于卡尔塔吉罗内的马约里卡陶瓷与小巷之间。直接在浏览器中畅玩,只需几分钟。",
       heroCaption: "谜题地图",
+      heroSub: "增强现实寻宝游戏",
+      goldBanner: "探索。解谜。率先抵达。",
       ctaBtn: "预留名额 →",
       aboutTitle: "关于游戏",
       aboutP1: "<strong>Vicus &amp; Fabula</strong> 是一款增强现实(WebAR)寻宝游戏:直接在智能手机浏览器中畅玩,无需下载任何应用。",
       aboutP2: "跟随与这座城市的历史、艺术和陶瓷传统相关的谜题与线索,探索<strong>圣马利亚山阶梯</strong>、巴洛克风格的历史中心以及手工艺作坊等地标。",
       aboutP3: "专为当天到访卡尔塔吉罗内的游客设计:<strong>1-2 小时</strong>的体验,适合独自、情侣、家庭或团体游玩。",
-      feature1: "谜题设置在城市的真实地点",
-      feature2: "融合艺术、历史与陶瓷的文化历史叙事",
-      feature3: "多人游戏体验,适合团体与家庭",
-      feature4: "无需安装应用:直接在浏览器中畅玩",
+      feat1Title: "在浏览器中畅玩",
+      feat1Text: "无需安装应用:打开链接即可立即开始,随时随地。",
+      feat2Title: "探索卡尔塔吉罗内",
+      feat2Text: "跟随线索,探寻这座城市的历史、艺术与陶瓷传统。",
+      feat3Title: "一场与时间的赛跑",
+      feat3Text: "尽快解开谜题:表现最佳的玩家将赢得可在城中使用的折扣券。",
+      feat4Title: "老少皆宜,方式随心",
+      feat4Text: "1-2 小时的体验,适合独自、情侣、家庭或团体游玩。",
+      earlybirdTitle: "早鸟福利:您的意见很重要!",
+      earlybirdText: "现在就回答,率先了解最新消息、抢先体验和专属福利。",
       formTitle: "您将是最早体验它的人之一",
       formSub: "只需 20 秒:帮助我们了解到访卡尔塔吉罗内的游客,并解锁您的上线优惠。",
       labelFascia: "您今天什么时候参观了卡尔塔吉罗内?",
@@ -834,6 +1012,7 @@
       copyBtn: "复制优惠码",
       copiedMsg: "已复制 ✓",
       discountHint: "Vicus & Fabula 上线时使用此优惠码即可获得专属折扣。",
+      skylineTagline: "这座城市就是你的游乐场,历史就是你的道路。",
       footerLine: "西西里卡尔塔吉罗内 — 即将上线"
     }
   };
