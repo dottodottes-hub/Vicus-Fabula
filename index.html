@@ -370,50 +370,6 @@
   }
   footer .fw{font-family:'Baloo 2', sans-serif;font-weight:700;font-size:1.1rem;color:var(--maiolica-dark);}
 
-  /* Tickets */
-  .tickets-section{padding:36px 0 8px;}
-  .ticket-card{
-    background:var(--card);
-    border-radius:var(--radius);
-    padding:24px 20px 26px;
-    box-shadow:0 10px 30px rgba(90,50,10,.1);
-    border:1px solid #F0E1C0;
-    text-align:center;
-  }
-  .ticket-card h2{font-size:1.4rem;}
-  .ticket-desc{color:var(--ink-soft);font-size:.92rem;margin:0 0 18px;}
-  .ticket-price{
-    font-family:'Baloo 2', sans-serif;
-    font-weight:800;
-    font-size:2.4rem;
-    color:var(--terracotta-dark);
-    margin:0 0 2px;
-  }
-  .ticket-price-note{font-size:.78rem;color:var(--ink-soft);margin:0 0 20px;}
-  .ticket-buy-btn{
-    display:inline-block;
-    width:100%;
-    background:var(--terracotta);
-    color:#fff;
-    font-weight:800;
-    font-size:1.02rem;
-    padding:16px;
-    border:none;
-    border-radius:14px;
-    cursor:pointer;
-    box-shadow:0 10px 22px rgba(193,68,14,.35);
-    text-decoration:none;
-    box-sizing:border-box;
-  }
-  .ticket-buy-btn.disabled{
-    background:#D8C8AE;
-    color:#7A6A54;
-    box-shadow:none;
-    cursor:not-allowed;
-    pointer-events:none;
-  }
-  .ticket-secure-note{margin-top:14px;font-size:.78rem;color:var(--ink-soft);}
-
   .earlybird{
     background:var(--maiolica-dark);
     padding:28px 0;
@@ -613,19 +569,6 @@
     </div>
   </section>
 
-  <section class="tickets-section" id="biglietti">
-    <div class="wrap">
-      <div class="ticket-card">
-        <h2 data-i18n="ticketsTitle">Prenota il tuo pass</h2>
-        <p class="ticket-desc" data-i18n="ticketsDesc">Assicurati l'accesso alla caccia al tesoro fin dal primo giorno di lancio.</p>
-        <div class="ticket-price" id="ticket-price">€9,90</div>
-        <p class="ticket-price-note" data-i18n="ticketPriceNote">Prezzo di lancio, a persona · pagamento sicuro con Stripe</p>
-        <a href="#" class="ticket-buy-btn" id="ticket-buy-btn" target="_blank" rel="noopener" data-i18n="ticketBuyBtn">Acquista il pass →</a>
-        <p class="ticket-secure-note" data-i18n="ticketSecureNote">Riceverai il pass e le istruzioni di gioco via email subito dopo il pagamento.</p>
-      </div>
-    </div>
-  </section>
-
   <section class="earlybird">
     <div class="wrap">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -789,17 +732,6 @@
   // Codice sconto mostrato a tutti dopo l'invio del form (nessun contatto
   // personale viene più raccolto, quindi non è un codice individuale).
   var DISCOUNT_CODE = "VICUS10";
-  // Prezzo mostrato nella sezione biglietti: solo testo informativo, il
-  // prezzo realmente addebitato è quello configurato nel Payment Link
-  // Stripe qui sotto. Aggiornalo se cambi il prezzo del pass.
-  var TICKET_PRICE_LABEL = "€9,90";
-  // Payment Link di Stripe per l'acquisto del pass (nessun backend
-  // necessario: Stripe ospita la pagina di pagamento). Crealo da Dashboard
-  // Stripe → Payment Links, poi incolla qui l'URL generato — vedi
-  // README.md per i dettagli. Finché resta il placeholder, il pulsante
-  // "Acquista" viene mostrato disattivato.
-  var TICKET_PAYMENT_LINK_URL = "https://buy.stripe.com/REPLACE_WITH_YOUR_PAYMENT_LINK";
-  var TICKET_LINK_CONFIGURED = TICKET_PAYMENT_LINK_URL.indexOf("REPLACE_WITH_YOUR_PAYMENT_LINK") === -1;
   // --------------------------------------------------------------------------
 
   var app = initializeApp(firebaseConfig);
@@ -844,12 +776,6 @@
       feat3Text: "Risolvi gli enigmi più in fretta che puoi: i migliori giocatori vincono buoni sconto da spendere in città.",
       feat4Title: "Per tutti, in ogni modo",
       feat4Text: "Un'esperienza di 1-2 ore, da vivere da soli, in coppia, in famiglia o in gruppo.",
-      ticketsTitle: "Prenota il tuo pass",
-      ticketsDesc: "Assicurati l'accesso alla caccia al tesoro fin dal primo giorno di lancio.",
-      ticketPriceNote: "Prezzo di lancio, a persona · pagamento sicuro con Stripe",
-      ticketBuyBtn: "Acquista il pass →",
-      ticketComingSoon: "Vendita in arrivo",
-      ticketSecureNote: "Riceverai il pass e le istruzioni di gioco via email subito dopo il pagamento.",
       earlybirdTitle: "Early bird: la tua opinione conta!",
       earlybirdText: "Rispondi ora e diventa tra i primi a scoprire novità, anteprime e vantaggi esclusivi.",
       formTitle: "Sei tra i primi a scoprirlo",
@@ -902,12 +828,6 @@
       feat3Text: "Solve the riddles as fast as you can: the top players win discount vouchers to spend in town.",
       feat4Title: "For everyone, any way",
       feat4Text: "A 1-2 hour experience, to enjoy solo, as a couple, with family or in a group.",
-      ticketsTitle: "Reserve your pass",
-      ticketsDesc: "Secure your access to the treasure hunt from day one of the launch.",
-      ticketPriceNote: "Launch price, per person · secure payment with Stripe",
-      ticketBuyBtn: "Buy your pass →",
-      ticketComingSoon: "Sales opening soon",
-      ticketSecureNote: "You'll receive your pass and game instructions by email right after payment.",
       earlybirdTitle: "Early bird: your opinion matters!",
       earlybirdText: "Answer now and be among the first to discover news, previews and exclusive perks.",
       formTitle: "You're among the first to discover it",
@@ -960,12 +880,6 @@
       feat3Text: "Resuelve los enigmas lo más rápido posible: los mejores jugadores ganan bonos de descuento para gastar en la ciudad.",
       feat4Title: "Para todos, de cualquier forma",
       feat4Text: "Una experiencia de 1-2 horas, para vivir solo, en pareja, en familia o en grupo.",
-      ticketsTitle: "Reserva tu pase",
-      ticketsDesc: "Asegura tu acceso a la búsqueda del tesoro desde el primer día de lanzamiento.",
-      ticketPriceNote: "Precio de lanzamiento, por persona · pago seguro con Stripe",
-      ticketBuyBtn: "Compra tu pase →",
-      ticketComingSoon: "Venta próximamente",
-      ticketSecureNote: "Recibirás tu pase y las instrucciones del juego por correo justo después del pago.",
       earlybirdTitle: "Early bird: ¡tu opinión cuenta!",
       earlybirdText: "Responde ahora y sé de los primeros en descubrir novedades, adelantos y ventajas exclusivas.",
       formTitle: "Eres de los primeros en descubrirlo",
@@ -1018,12 +932,6 @@
       feat3Text: "Résolvez les énigmes le plus vite possible : les meilleurs joueurs gagnent des bons de réduction à dépenser en ville.",
       feat4Title: "Pour tous, de toutes les façons",
       feat4Text: "Une expérience de 1 à 2 heures, à vivre seul, en couple, en famille ou en groupe.",
-      ticketsTitle: "Réservez votre pass",
-      ticketsDesc: "Assurez-vous l'accès à la chasse au trésor dès le premier jour du lancement.",
-      ticketPriceNote: "Prix de lancement, par personne · paiement sécurisé avec Stripe",
-      ticketBuyBtn: "Achetez votre pass →",
-      ticketComingSoon: "Vente bientôt disponible",
-      ticketSecureNote: "Vous recevrez votre pass et les instructions du jeu par e-mail juste après le paiement.",
       earlybirdTitle: "Early bird : votre avis compte !",
       earlybirdText: "Répondez maintenant et soyez parmi les premiers à découvrir les nouveautés, avant-premières et avantages exclusifs.",
       formTitle: "Vous êtes parmi les premiers à le découvrir",
@@ -1076,12 +984,6 @@
       feat3Text: "尽快解开谜题:表现最佳的玩家将赢得可在城中使用的折扣券。",
       feat4Title: "老少皆宜,方式随心",
       feat4Text: "1-2 小时的体验,适合独自、情侣、家庭或团体游玩。",
-      ticketsTitle: "预订您的通行证",
-      ticketsDesc: "从上线第一天起就确保您能参与这场寻宝游戏。",
-      ticketPriceNote: "上线价格,每人 · 通过 Stripe 安全支付",
-      ticketBuyBtn: "购买通行证 →",
-      ticketComingSoon: "即将开售",
-      ticketSecureNote: "支付完成后,您将立即通过邮件收到通行证和游戏说明。",
       earlybirdTitle: "早鸟福利:您的意见很重要!",
       earlybirdText: "现在就回答,率先了解最新消息、抢先体验和专属福利。",
       formTitle: "您将是最早体验它的人之一",
@@ -1156,20 +1058,6 @@
     var selectEl = document.getElementById("lang-select");
     if (selectEl) selectEl.value = lang;
 
-    var buyBtn = document.getElementById("ticket-buy-btn");
-    if (buyBtn){
-      if (TICKET_LINK_CONFIGURED){
-        buyBtn.href = TICKET_PAYMENT_LINK_URL;
-        buyBtn.classList.remove("disabled");
-        buyBtn.removeAttribute("aria-disabled");
-      } else {
-        buyBtn.textContent = dict.ticketComingSoon;
-        buyBtn.removeAttribute("href");
-        buyBtn.classList.add("disabled");
-        buyBtn.setAttribute("aria-disabled", "true");
-      }
-    }
-
     try { localStorage.setItem("vf_lang", lang); } catch(e){}
   }
   // --------------------------------------------------------------------------
@@ -1180,7 +1068,6 @@
       applyLang(e.target.value);
     });
     document.getElementById("discount-code").textContent = DISCOUNT_CODE;
-    document.getElementById("ticket-price").textContent = TICKET_PRICE_LABEL;
 
     var form = document.getElementById("vf-form");
     var fasciaGroup = document.getElementById("fascia-group");

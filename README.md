@@ -93,42 +93,6 @@ https://tuo-dominio/index.html?source=qr-scala
 Il parametro `source` viene salvato con ogni risposta del form, per poter
 distinguere in futuro il traffico dal cartello fisico da altri canali.
 
-## Vendita pass (Stripe Payment Links)
-
-La sezione "Prenota il tuo pass" della landing page permette l'acquisto di
-un pass di accesso al gioco. Non essendoci un backend, il pagamento è
-gestito interamente da **Stripe Payment Links**: il pulsante "Acquista"
-è un semplice link a una pagina di pagamento ospitata da Stripe, senza
-bisogno di scrivere codice server-side né di passare al piano Blaze di
-Firebase.
-
-### 1. Creare il Payment Link
-
-1. Accedi alla [Dashboard Stripe](https://dashboard.stripe.com/) → **Payment
-   links** → **Crea un payment link**.
-2. Crea il prodotto "Pass Vicus & Fabula" con il prezzo desiderato.
-3. (Opzionale) In "Opzioni avanzate" attiva **"Consenti codici promozionali"**
-   se vuoi che i visitatori possano inserire il codice sconto ricevuto dal
-   form (es. `VICUS10`) al momento del pagamento — in tal caso crea anche il
-   relativo codice promozionale in Stripe → Prodotti → Codici promozionali.
-4. Copia l'URL generato (tipo `https://buy.stripe.com/xxxxxxxx`).
-
-### 2. Collegarlo alla landing page
-
-In `index.html`, dentro lo script, aggiorna le due costanti:
-
-```js
-var TICKET_PRICE_LABEL = "€9,90"; // testo mostrato in pagina, solo informativo
-var TICKET_PAYMENT_LINK_URL = "https://buy.stripe.com/xxxxxxxx"; // il tuo Payment Link
-```
-
-`TICKET_PRICE_LABEL` è solo testo mostrato nella card: il prezzo realmente
-addebitato è quello configurato nel prodotto Stripe, quindi tienili
-allineati manualmente. Finché `TICKET_PAYMENT_LINK_URL` contiene ancora il
-placeholder `REPLACE_WITH_YOUR_PAYMENT_LINK`, il pulsante viene mostrato
-disattivato con il testo "Vendita in arrivo" (tradotto nelle 5 lingue),
-così da evitare un link rotto prima che il pass sia davvero in vendita.
-
 ## Codice sconto
 
 Il form non raccoglie email o telefono: subito dopo aver risposto al
