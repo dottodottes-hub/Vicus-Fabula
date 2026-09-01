@@ -616,6 +616,35 @@
               <option value="Altro" data-i18n="optAltroMezzo">Altro</option>
             </select>
 
+            <label class="field-label" for="eta" data-i18n="labelEta">Quanti anni hai?</label>
+            <select id="eta" required>
+              <option value="" disabled selected data-i18n="optSelect">Seleziona…</option>
+              <option value="Meno di 18" data-i18n="optEtaUnder18">Meno di 18</option>
+              <option value="18-24" data-i18n="optEta1824">18-24</option>
+              <option value="25-34" data-i18n="optEta2534">25-34</option>
+              <option value="35-44" data-i18n="optEta3544">35-44</option>
+              <option value="45-54" data-i18n="optEta4554">45-54</option>
+              <option value="55+" data-i18n="optEta55Plus">55+</option>
+            </select>
+
+            <label class="field-label"><span data-i18n="labelGenere">Genere</span> <span style="font-weight:400;color:var(--ink-soft);" data-i18n="optNote">(facoltativo)</span></label>
+            <select id="genere">
+              <option value="" disabled selected data-i18n="optSelect">Seleziona…</option>
+              <option value="Donna" data-i18n="optDonna">Donna</option>
+              <option value="Uomo" data-i18n="optUomo">Uomo</option>
+              <option value="Non binario" data-i18n="optNonBinario">Non binario</option>
+              <option value="Preferisco non specificare" data-i18n="optNonSpecificare">Preferisco non specificare</option>
+            </select>
+
+            <label class="field-label" for="gruppo" data-i18n="labelGruppo">In quanti siete a visitarla?</label>
+            <select id="gruppo" required>
+              <option value="" disabled selected data-i18n="optSelect">Seleziona…</option>
+              <option value="Da solo/a" data-i18n="optDaSolo">Da solo/a</option>
+              <option value="In coppia" data-i18n="optInCoppia">In coppia</option>
+              <option value="In gruppo (3-5)" data-i18n="optInGruppo">In gruppo (3-5)</option>
+              <option value="Gruppo numeroso (6+)" data-i18n="optGruppoNumeroso">Gruppo numeroso (6+)</option>
+            </select>
+
             <button type="submit" class="submit-btn" id="submit-btn" data-i18n="submitBtn">Rispondi e sblocca lo sconto di lancio</button>
             <div class="form-msg" id="form-msg"></div>
           </form>
@@ -685,6 +714,18 @@
       <div class="breakdown">
         <h3>Mezzo di trasporto</h3>
         <div id="bd-mezzo"></div>
+      </div>
+      <div class="breakdown">
+        <h3>Età</h3>
+        <div id="bd-eta"></div>
+      </div>
+      <div class="breakdown">
+        <h3>Genere</h3>
+        <div id="bd-genere"></div>
+      </div>
+      <div class="breakdown">
+        <h3>Composizione gruppo</h3>
+        <div id="bd-gruppo"></div>
       </div>
       <div class="breakdown">
         <h3>Canale (source)</h3>
@@ -795,6 +836,23 @@
       optPullman: "Pullman / tour organizzato",
       optMezziPubblici: "Mezzi pubblici",
       optAltroMezzo: "Altro",
+      labelEta: "Quanti anni hai?",
+      optEtaUnder18: "Meno di 18",
+      optEta1824: "18-24",
+      optEta2534: "25-34",
+      optEta3544: "35-44",
+      optEta4554: "45-54",
+      optEta55Plus: "55+",
+      labelGenere: "Genere",
+      optDonna: "Donna",
+      optUomo: "Uomo",
+      optNonBinario: "Non binario",
+      optNonSpecificare: "Preferisco non specificare",
+      labelGruppo: "In quanti siete a visitarla?",
+      optDaSolo: "Da solo/a",
+      optInCoppia: "In coppia",
+      optInGruppo: "In gruppo (3-5)",
+      optGruppoNumeroso: "Gruppo numeroso (6+)",
       submitBtn: "Rispondi e sblocca lo sconto di lancio",
       submitting: "Invio in corso…",
       formErrRequired: "Seleziona provenienza e mezzo di trasporto per continuare.",
@@ -847,6 +905,23 @@
       optPullman: "Coach / organised tour",
       optMezziPubblici: "Public transport",
       optAltroMezzo: "Other",
+      labelEta: "How old are you?",
+      optEtaUnder18: "Under 18",
+      optEta1824: "18-24",
+      optEta2534: "25-34",
+      optEta3544: "35-44",
+      optEta4554: "45-54",
+      optEta55Plus: "55+",
+      labelGenere: "Gender",
+      optDonna: "Woman",
+      optUomo: "Man",
+      optNonBinario: "Non-binary",
+      optNonSpecificare: "Prefer not to say",
+      labelGruppo: "How many of you are visiting?",
+      optDaSolo: "On my own",
+      optInCoppia: "As a couple",
+      optInGruppo: "As a group (3-5)",
+      optGruppoNumeroso: "Large group (6+)",
       submitBtn: "Answer and unlock the launch discount",
       submitting: "Sending…",
       formErrRequired: "Select where you're from and how you arrived to continue.",
@@ -899,6 +974,23 @@
       optPullman: "Autobús / tour organizado",
       optMezziPubblici: "Transporte público",
       optAltroMezzo: "Otro",
+      labelEta: "¿Cuántos años tienes?",
+      optEtaUnder18: "Menos de 18",
+      optEta1824: "18-24",
+      optEta2534: "25-34",
+      optEta3544: "35-44",
+      optEta4554: "45-54",
+      optEta55Plus: "55+",
+      labelGenere: "Género",
+      optDonna: "Mujer",
+      optUomo: "Hombre",
+      optNonBinario: "No binario",
+      optNonSpecificare: "Prefiero no decirlo",
+      labelGruppo: "¿Cuántos sois visitándola?",
+      optDaSolo: "Solo/a",
+      optInCoppia: "En pareja",
+      optInGruppo: "En grupo (3-5)",
+      optGruppoNumeroso: "Grupo numeroso (6+)",
       submitBtn: "Responde y desbloquea el descuento de lanzamiento",
       submitting: "Enviando…",
       formErrRequired: "Selecciona tu procedencia y medio de transporte para continuar.",
@@ -951,6 +1043,23 @@
       optPullman: "Car / voyage organisé",
       optMezziPubblici: "Transports en commun",
       optAltroMezzo: "Autre",
+      labelEta: "Quel âge avez-vous ?",
+      optEtaUnder18: "Moins de 18 ans",
+      optEta1824: "18-24",
+      optEta2534: "25-34",
+      optEta3544: "35-44",
+      optEta4554: "45-54",
+      optEta55Plus: "55+",
+      labelGenere: "Genre",
+      optDonna: "Femme",
+      optUomo: "Homme",
+      optNonBinario: "Non-binaire",
+      optNonSpecificare: "Je préfère ne pas préciser",
+      labelGruppo: "Combien êtes-vous à la visiter ?",
+      optDaSolo: "Seul(e)",
+      optInCoppia: "En couple",
+      optInGruppo: "En groupe (3-5)",
+      optGruppoNumeroso: "Grand groupe (6+)",
       submitBtn: "Répondez et débloquez la remise de lancement",
       submitting: "Envoi en cours…",
       formErrRequired: "Sélectionnez votre provenance et votre moyen de transport pour continuer.",
@@ -1003,6 +1112,23 @@
       optPullman: "大巴/跟团游",
       optMezziPubblici: "公共交通",
       optAltroMezzo: "其他",
+      labelEta: "您的年龄是?",
+      optEtaUnder18: "18岁以下",
+      optEta1824: "18-24",
+      optEta2534: "25-34",
+      optEta3544: "35-44",
+      optEta4554: "45-54",
+      optEta55Plus: "55岁以上",
+      labelGenere: "性别",
+      optDonna: "女性",
+      optUomo: "男性",
+      optNonBinario: "非二元性别",
+      optNonSpecificare: "不便透露",
+      labelGruppo: "您是和多少人一起来参观的?",
+      optDaSolo: "独自一人",
+      optInCoppia: "两人结伴",
+      optInGruppo: "小团体(3-5人)",
+      optGruppoNumeroso: "大团体(6人以上)",
       submitBtn: "回答并解锁上线优惠",
       submitting: "发送中…",
       formErrRequired: "请选择您的出发地和到达方式以继续。",
@@ -1097,8 +1223,11 @@
       e.preventDefault();
       var provenienza = document.getElementById("provenienza").value;
       var mezzo = document.getElementById("mezzo").value;
+      var eta = document.getElementById("eta").value;
+      var genere = document.getElementById("genere").value;
+      var gruppo = document.getElementById("gruppo").value;
 
-      if (!provenienza || !mezzo){
+      if (!provenienza || !mezzo || !eta || !gruppo){
         showMsg(I18N[currentLang].formErrRequired, "error");
         return;
       }
@@ -1108,6 +1237,9 @@
         dataOggi: new Date().toISOString().slice(0, 10),
         provenienza: provenienza,
         mezzoTrasporto: mezzo,
+        eta: eta,
+        genere: genere || null,
+        gruppo: gruppo,
         source: source,
         createdAt: serverTimestamp()
       };
@@ -1193,13 +1325,16 @@
 
       getDocs(collection(db, COLLECTION_NAME))
         .then(function(snapshot){
-          var stats = { totale: 0, fasciaOraria: {}, provenienza: {}, mezzoTrasporto: {}, source: {} };
+          var stats = { totale: 0, fasciaOraria: {}, provenienza: {}, mezzoTrasporto: {}, eta: {}, genere: {}, gruppo: {}, source: {} };
           snapshot.forEach(function(doc){
             var d = doc.data();
             stats.totale++;
             incr(stats.fasciaOraria, d.fasciaOraria);
             incr(stats.provenienza, d.provenienza);
             incr(stats.mezzoTrasporto, d.mezzoTrasporto);
+            incr(stats.eta, d.eta);
+            incr(stats.genere, d.genere);
+            incr(stats.gruppo, d.gruppo);
             incr(stats.source, d.source);
           });
 
@@ -1209,6 +1344,9 @@
           bar(document.getElementById("bd-fascia"), stats.fasciaOraria, stats.totale);
           bar(document.getElementById("bd-provenienza"), stats.provenienza, stats.totale);
           bar(document.getElementById("bd-mezzo"), stats.mezzoTrasporto, stats.totale);
+          bar(document.getElementById("bd-eta"), stats.eta, stats.totale);
+          bar(document.getElementById("bd-genere"), stats.genere, stats.totale);
+          bar(document.getElementById("bd-gruppo"), stats.gruppo, stats.totale);
           bar(document.getElementById("bd-source"), stats.source, stats.totale);
         })
         .catch(function(err){

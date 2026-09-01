@@ -37,10 +37,12 @@ service cloud.firestore {
     match /risposte/{docId} {
       // Chiunque può inviare una risposta dal form pubblico...
       allow create: if request.resource.data.keys().hasOnly(
-                        ['fasciaOraria','dataOggi','provenienza','mezzoTrasporto','source','createdAt']
+                        ['fasciaOraria','dataOggi','provenienza','mezzoTrasporto','eta','genere','gruppo','source','createdAt']
                       )
                     && request.resource.data.provenienza is string
                     && request.resource.data.mezzoTrasporto is string
+                    && request.resource.data.eta is string
+                    && request.resource.data.gruppo is string
                     && request.resource.data.source is string;
       // ...ma solo un admin autenticato può leggere/modificare/cancellare.
       allow read, update, delete: if request.auth != null;
@@ -63,7 +65,8 @@ La vista `?admin=1` richiede un login Firebase Authentication:
 2. Authentication → Users → **Aggiungi utente**: inserisci l'email e una
    password che userai per accedere al pannello (es. `dotto.dottes@gmail.com`).
 3. Su `index.html?admin=1`, accedi con quelle credenziali per vedere i
-   conteggi aggregati (fascia oraria, provenienza, mezzo di trasporto, canale).
+   conteggi aggregati (fascia oraria, provenienza, mezzo di trasporto, età,
+   genere, composizione del gruppo, canale).
 
 ### 3. Configurazione già presente nel codice
 
@@ -122,9 +125,14 @@ nell'URL). Le traduzioni sono nel dizionario `I18N` dentro lo script di
 lingue. Il pannello admin (`?admin=1`) resta solo in italiano, essendo uno
 strumento a uso interno.
 
-Il campo "Da dove vieni?" del form ha 3 opzioni fisse (Sicilia / Italia /
-Estero), salvate su Firestore sempre con questi valori canonici in italiano
-indipendentemente dalla lingua mostrata al visitatore.
+I campi a scelta multipla del form (provenienza, mezzo di trasporto, età,
+genere, composizione del gruppo) salvano su Firestore sempre gli stessi
+valori canonici in italiano, indipendentemente dalla lingua mostrata al
+visitatore — es. "Da dove vieni?" ha sempre Sicilia / Italia / Estero come
+valori, anche se il visitatore vede "Sicily / Italy / Abroad" in inglese.
+Il campo genere è facoltativo e include un'opzione "Preferisco non
+specificare"; gli altri campi obbligatori sono provenienza, mezzo, età e
+composizione del gruppo.
 
 ## Personalizzazione
 
